@@ -145,11 +145,16 @@ node_modules/
 .idea/workspace.xml
 
 # Docker #
+##########
 .data
 db_env.env
 docker-vh/
 
-# Local dev files
-#################
+# Local dev files#
+##################
 /db backup
 /DPROD
+
+# VS Code #
+###########
+.vscode
