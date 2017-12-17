@@ -11,6 +11,7 @@ Thumbs.db
 .htaccess
 
 # wordpress specific
+####################
 wp-config.php
 wp-content/uploads/
 wp-content/blogs.dir/
@@ -25,6 +26,7 @@ wp-content/uploads/*
 hello.php
 
 # wpengine specific
+###################
 .smushit-status
 .gitattributes
 _wpeprivate
@@ -43,6 +45,7 @@ favicon.ico
 *.ico
 
 # wp core (as of 3.4.1)
+#######################
 /db-config.php
 /index.php
 /license.txt
@@ -79,6 +82,7 @@ favicon.ico
 
 # large/disallowed file types
 # a CDN should be used for these
+################################
 *.hqx
 *.bin
 *.exe
@@ -144,3 +148,8 @@ node_modules/
 .data
 db_env.env
 docker-vh/
+
+# Local dev files
+#################
+/db backup
+/DPROD
