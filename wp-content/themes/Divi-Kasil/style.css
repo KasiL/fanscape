@@ -1,16 +1,21 @@
-/*
- Theme Name:   Kasil Child Theme
- Theme URI:    caseylisak.com
- Description:  A DIVI child theme 
- Author:       Casey Lisak
- Author URI:   http://www.caseylisak.com
- Template:     Divi
- Version:      1.0.0
+/* Theme Name:   Kasil Child Theme Theme URI:    caseylisak.com Description:  A DIVI child theme  Author:       Casey Lisak Author URI:   http://www.caseylisak.com Template:     Divi Version:      1.0.0 */
+/* -----------------------------------------
+	Table of Contents
+--------------------------------------------
+
+.. 01. General
+.. 02. Header
+.. 03. Modules
+.. 04. Footer
+.. 05. Comments
+.. 06. Widgets Styling
+.. 07. WordPress defaults
+.. 08. Utilities
 */
+h2 { font-size: 2vw !important; }
 
-@import url("../Divi/style.css");
+* { border: 2px solid red; }
 
-/* see the enqued css in functions.php */
-*{
-    outline: 1px dotted red;
-}
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic3R5bGUuY3NzIiwic291cmNlcyI6WyJzdHlsZS5zY3NzIiwicGFydGlhbHMvX3ZhcnMuc2NzcyIsInBhcnRpYWxzL19oZWFkZXIuc2NzcyJdLCJtYXBwaW5ncyI6IkFBQUEsNk1BUUU7QUFHRjs7Ozs7Ozs7Ozs7O0VBWUU7QUV2QkYsQUFBQSxFQUFFLENBQUMsRUFDQyxTQUFTLEVBQUUsY0FBZSxHQUM3Qjs7QUFDRCxBQUFBLENBQUMsQ0FBQSxFQUNHLE1BQU0sRUFBRSxhQUFjLEdBQ3pCIiwibmFtZXMiOltdfQ== */
+
+/*# sourceMappingURL=style.css.map */
