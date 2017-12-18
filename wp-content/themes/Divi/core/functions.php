@@ -476,12 +476,14 @@ if ( ! function_exists( 'et_core_register_common_assets' ) ) :
  * @private
  */
 function et_core_register_common_assets() {
-	wp_register_script( 'et-core-common', ET_CORE_URL . 'js/common.js', array(), ET_CORE_VERSION );
+	// common.js needs to be located at footer after waypoint, fitvid, & magnific js to avoid broken javascript on Facebook in-app browser
+	wp_register_script( 'et-core-common', ET_CORE_URL . 'admin/js/common.js', array( 'jquery' ), ET_CORE_VERSION, true );
 	wp_enqueue_script( 'et-core-common' );
 }
 endif;
 
-add_action( 'wp_enqueue_scripts', 'et_core_register_common_assets' );
+// common.js needs to be loaded after waypoint, fitvid, & magnific js to avoid broken javascript on Facebook in-app browser, hence the 15 priority
+add_action( 'wp_enqueue_scripts', 'et_core_register_common_assets', 15 );
 
 if ( ! function_exists( 'et_core_security_check' ) ):
 /**

@@ -1203,14 +1203,10 @@ class ET_Builder_Element {
 			$content = array_key_exists( 'content_new', $this->whitelisted_fields ) || 'et_pb_code' === $function_name_processed || 'et_pb_fullwidth_code' === $function_name_processed ? $processed_content : et_fb_process_shortcode( $processed_content, $address, $global_parent, $global_parent_type );
 		}
 
-		if ( is_array( $content ) ) {
-			$prepared_content = $content;
-		} else {
-			if ( $this->fb_support && count( preg_split('/\r\n*\n/', trim( $content ), -1, PREG_SPLIT_NO_EMPTY ) ) > 1 ) {
-				$prepared_content = wpautop( $content );
-			} else {
-				$prepared_content = html_entity_decode($content, ENT_COMPAT, 'UTF-8');
-			}
+		$prepared_content = $content;
+
+		if ( ! is_array( $content ) && ! ( $this->fb_support && count( preg_split('/\r\n*\n/', trim( $content ), -1, PREG_SPLIT_NO_EMPTY ) ) > 1 ) ) {
+			$prepared_content = html_entity_decode($content, ENT_COMPAT, 'UTF-8');
 		}
 
 		if ( empty( $attrs ) ) {
@@ -3475,7 +3471,6 @@ class ET_Builder_Element {
 			unset($additional_child_options[$option]['depends_default']);
 			$additional_child_options[$option]['depends_show_if'] = $child_filter['depends_show_if'];
 		}
-		//var_dump($additional_child_options);
 
 		$this->_additional_fields_options = array_merge( $this->_additional_fields_options, $additional_child_options );
 	}
