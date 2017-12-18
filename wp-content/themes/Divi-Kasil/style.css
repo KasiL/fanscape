@@ -1,6 +1,6 @@
 /*
  Theme Name:   Kasil Child Theme
- Theme URI:    http://www.wpbeginner.com/
+ Theme URI:    caseylisak.com
  Description:  A DIVI child theme 
  Author:       Casey Lisak
  Author URI:   http://www.caseylisak.com
@@ -9,3 +9,8 @@
 */
 
 @import url("../Divi/style.css");
+
+/* see the enqued css in functions.php */
+*{
+    outline: 1px dotted red;
+}

@@ -130,6 +130,10 @@ package.json
 node_modules
 .sass-cache
 
+#pulled from updated gulpfile#
+/dist/
+*/node_modules
+
 # Grunt #
 ###########
 bower.json
@@ -158,3 +162,4 @@ docker-vh/
 # VS Code #
 ###########
 .vscode
+
