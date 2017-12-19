@@ -1,0 +1,10 @@
+//Breakpoints
+$screen-xs-min: 480px;
+$screen-sm-min: 768px;
+$screen-tab-min: 981px;
+$screen-md-min: 1100px;
+$screen-lg-min: 1405px;
+$screen-xs-max: ($screen-sm-min - 1);
+$screen-sm-max: ($screen-tab-min - 1);
+$screen-tab-max: ($screen-md-min - 1);
+$screen-md-max: ($screen-lg-min - 1);

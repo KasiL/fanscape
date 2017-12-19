@@ -22,14 +22,16 @@
 .. 07. WordPress defaults
 .. 08. Utilities
 */
-
-@import 'partials/vars';
-// @import 'partials/mixins/mixins';
-// @import 'partials/base';
-@import 'partials/header';
-// @import 'partials/modules';
-// @import 'partials/footer';
-// @import 'partials/comments';
-// @import 'partials/widgets';
-// @import 'partials/wp-defaults';
-// @import 'partials/utilities';
+body.kasil {
+	@import 'partials/vars';
+	// @import 'partials/mixins/mixins';
+	// @import 'partials/base';
+	@import 'partials/button';
+	@import 'partials/header';
+	// @import 'partials/modules';
+	// @import 'partials/footer';
+	// @import 'partials/comments';
+	// @import 'partials/widgets';
+	// @import 'partials/wp-defaults';
+	// @import 'partials/utilities';
+}

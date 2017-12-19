@@ -1,2 +1,3 @@
-h2{font-size:2vw !important}
-*{border:2px solid red}
+body.kasil .et_pb_button{padding:1em !important;background-color:#f78d1f;box-shadow:0 12px 51px rgba(0,0,0,0.21);background-image:-webkit-linear-gradient(247deg,#f68915,#e06c16);background-image:linear-gradient(-157deg,#f68915,#e06c16)}
+body.kasil .et_pb_button:hover{padding:1em !important}
+body.kasil #main-header #logo{-webkit-transform:inherit;-ms-transform:inherit;transform:inherit}

@@ -1,6 +1,19 @@
-
-
 <?php
+
+// adds class to body for easier styling
+function kasil_body_classes($classes)
+{
+    $classes[] = 'kasil';
+        if (is_404()) {
+        $classes[] = 'et_pb_gutters' . et_get_option( 'gutter_width', '3' );
+    }
+    return $classes;
+}
+
+add_filter( 'body_class','kasil_body_classes' );
+
+//enqueue's the child theme styles to overwrite the parent's styles
+
 function my_theme_enqueue_styles() {
 
     $parent_style = 'Divi-style'; // This is 'twentyfifteen-style' for the Twenty Fifteen theme.

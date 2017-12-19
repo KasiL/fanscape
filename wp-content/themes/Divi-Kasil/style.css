@@ -12,10 +12,12 @@
 .. 07. WordPress defaults
 .. 08. Utilities
 */
-h2 { font-size: 2vw !important; }
+body.kasil .et_pb_button { padding: 1em !important; background-color: #f78d1f; box-shadow: 0 12px 51px rgba(0, 0, 0, 0.21); background-image: -webkit-linear-gradient(247deg, #f68915, #e06c16); background-image: linear-gradient(-157deg, #f68915, #e06c16); }
 
-* { border: 2px solid red; }
+body.kasil .et_pb_button:hover { padding: 1em !important; }
 
-/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic3R5bGUuY3NzIiwic291cmNlcyI6WyJzdHlsZS5zY3NzIiwicGFydGlhbHMvX3ZhcnMuc2NzcyIsInBhcnRpYWxzL19oZWFkZXIuc2NzcyJdLCJtYXBwaW5ncyI6IkFBQUEsNk1BUUU7QUFHRjs7Ozs7Ozs7Ozs7O0VBWUU7QUV2QkYsQUFBQSxFQUFFLENBQUMsRUFDQyxTQUFTLEVBQUUsY0FBZSxHQUM3Qjs7QUFDRCxBQUFBLENBQUMsQ0FBQSxFQUNHLE1BQU0sRUFBRSxhQUFjLEdBQ3pCIiwibmFtZXMiOltdfQ== */
+body.kasil #main-header #logo { -webkit-transform: inherit; -ms-transform: inherit; transform: inherit; }
+
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic3R5bGUuY3NzIiwic291cmNlcyI6WyJzdHlsZS5zY3NzIiwicGFydGlhbHMvX3ZhcnMuc2NzcyIsInBhcnRpYWxzL19idXR0b24uc2NzcyIsInBhcnRpYWxzL19oZWFkZXIuc2NzcyJdLCJtYXBwaW5ncyI6IkFBQUEsNk1BUUU7QUFHRjs7Ozs7Ozs7Ozs7O0VBWUU7QUFDRixBRXhCQSxJRndCSSxBQUFBLE1BQU0sQ0V4QlYsYUFBYSxDQUFDLEVBQ1YsT0FBTyxFQUFFLGNBQWUsRUFDeEIsZ0JBQWdCLEVBQUUsT0FBUSxFQUMxQixVQUFVLEVBQUUsQ0FBQyxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsbUJBQUksRUFDNUIsZ0JBQWdCLEVBQUUsMENBQWUsR0FLcEM7O0FGZUQsQUV4QkEsSUZ3QkksQUFBQSxNQUFNLENFeEJWLGFBQWEsQUFNUixNQUFNLENBQUMsRUFDSixPQUFPLEVBQUUsY0FBZSxHQUMzQjs7QUZnQkwsQUd3Q0ksSUh4Q0EsQUFBQSxNQUFNLENHeEJWLFlBQVksQ0FnRVIsS0FBSyxDQUFDLEVBQ0YsU0FBUyxFQUFFLE9BQVEsR0FDdEIiLCJuYW1lcyI6W119 */
 
 /*# sourceMappingURL=style.css.map */
