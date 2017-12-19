@@ -125,20 +125,13 @@ TODO.TODO
 
 # Gulp.js #
 ###########
-package.json
 node_modules
 .sass-cache
+bower_components/*
 
 #pulled from updated gulpfile#
 /dist/
 */node_modules
-
-# Grunt #
-###########
-bower.json
-package.json
-Gruntfile.js
-node_modules/
 
 
 # PHPStorm #
