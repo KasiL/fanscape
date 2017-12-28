@@ -173,11 +173,13 @@ gulp.task( 'browser-sync', function() {
     .pipe( sourcemaps.init() )
     .pipe( sass( {
       errLogToConsole: true,
-      outputStyle: 'compact',
+      indentType: 'tab',
+      indentWidth: 1,
+      // outputStyle: 'compact',
       // outputStyle: 'compressed',
       // outputStyle: 'nested',
-      // outputStyle: 'expanded',
-      precision: 10
+      outputStyle: 'expanded',
+      // precision: 10
     } ) )
     .on('error', console.error.bind(console))
     .pipe( sourcemaps.write( { includeContent: false } ) )

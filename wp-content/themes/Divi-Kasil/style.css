@@ -1,4 +1,12 @@
-/* Theme Name:   Kasil Child Theme Theme URI:    caseylisak.com Description:  A DIVI child theme  Author:       Casey Lisak Author URI:   http://www.caseylisak.com Template:     Divi Version:      1.0.0 */
+/*
+ Theme Name:   Kasil Child Theme
+ Theme URI:    caseylisak.com
+ Description:  A DIVI child theme 
+ Author:       Casey Lisak
+ Author URI:   http://www.caseylisak.com
+ Template:     Divi
+ Version:      1.0.0
+*/
 /* -----------------------------------------
 	Table of Contents
 --------------------------------------------
@@ -12,12 +20,38 @@
 .. 07. WordPress defaults
 .. 08. Utilities
 */
-body.kasil .et_pb_button { padding: 1em !important; background-color: #f78d1f; box-shadow: 0 12px 51px rgba(0, 0, 0, 0.21); background-image: -webkit-linear-gradient(247deg, #f68915, #e06c16); background-image: linear-gradient(-157deg, #f68915, #e06c16); }
+body.kasil .et_pb_button {
+	padding: 1em !important;
+	background-color: #f78d1f;
+	box-shadow: 0 12px 51px rgba(0, 0, 0, 0.21);
+	background-image: -webkit-linear-gradient(247deg, #f68915, #e06c16);
+	background-image: linear-gradient(-157deg, #f68915, #e06c16);
+}
 
-body.kasil .et_pb_button:hover { padding: 1em !important; }
+body.kasil .et_pb_button:hover {
+	padding: 1em !important;
+}
 
-body.kasil #main-header #logo { -webkit-transform: inherit; -ms-transform: inherit; transform: inherit; }
+body.kasil #main-header #logo {
+	-webkit-transform: inherit;
+	    -ms-transform: inherit;
+	        transform: inherit;
+}
 
-/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic3R5bGUuY3NzIiwic291cmNlcyI6WyJzdHlsZS5zY3NzIiwicGFydGlhbHMvX3ZhcnMuc2NzcyIsInBhcnRpYWxzL19idXR0b24uc2NzcyIsInBhcnRpYWxzL19oZWFkZXIuc2NzcyJdLCJtYXBwaW5ncyI6IkFBQUEsNk1BUUU7QUFHRjs7Ozs7Ozs7Ozs7O0VBWUU7QUFDRixBRXhCQSxJRndCSSxBQUFBLE1BQU0sQ0V4QlYsYUFBYSxDQUFDLEVBQ1YsT0FBTyxFQUFFLGNBQWUsRUFDeEIsZ0JBQWdCLEVBQUUsT0FBUSxFQUMxQixVQUFVLEVBQUUsQ0FBQyxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsbUJBQUksRUFDNUIsZ0JBQWdCLEVBQUUsMENBQWUsR0FLcEM7O0FGZUQsQUV4QkEsSUZ3QkksQUFBQSxNQUFNLENFeEJWLGFBQWEsQUFNUixNQUFNLENBQUMsRUFDSixPQUFPLEVBQUUsY0FBZSxHQUMzQjs7QUZnQkwsQUd3Q0ksSUh4Q0EsQUFBQSxNQUFNLENHeEJWLFlBQVksQ0FnRVIsS0FBSyxDQUFDLEVBQ0YsU0FBUyxFQUFFLE9BQVEsR0FDdEIiLCJuYW1lcyI6W119 */
+body.kasil .team-link .et_pb_text {
+	-webkit-filter: grayscale(100%);
+	        filter: grayscale(100%);
+	-webkit-transition: .5s;
+	transition: .5s;
+}
+
+body.kasil .team-link .et_pb_text:hover {
+	-webkit-filter: grayscale(0);
+	        filter: grayscale(0);
+	box-shadow: 0px 5px 18px 5px rgba(0, 0, 0, 0.3);
+	text-shadow: 0em 0.39em 0.6em rgba(0, 0, 0, 0.7);
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic3R5bGUuY3NzIiwic291cmNlcyI6WyJzdHlsZS5zY3NzIiwicGFydGlhbHMvX3ZhcnMuc2NzcyIsInBhcnRpYWxzL19idXR0b24uc2NzcyIsInBhcnRpYWxzL19oZWFkZXIuc2NzcyIsInBhcnRpYWxzL190ZXh0LnNjc3MiXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7OztFQVFFO0FBR0Y7Ozs7Ozs7Ozs7OztFQVlFO0FBQ0YsQUV4QkEsSUZ3QkksQUFBQSxNQUFNLENFeEJWLGFBQWEsQ0FBQztDQUNWLE9BQU8sRUFBRSxjQUFlO0NBQ3hCLGdCQUFnQixFQUFFLE9BQVE7Q0FDMUIsVUFBVSxFQUFFLENBQUMsQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLG1CQUFJO0NBQzVCLGdCQUFnQixFQUFFLDBDQUFlO0NBS3BDOztBRmVELEFFeEJBLElGd0JJLEFBQUEsTUFBTSxDRXhCVixhQUFhLEFBTVIsTUFBTSxDQUFDO0NBQ0osT0FBTyxFQUFFLGNBQWU7Q0FDM0I7O0FGZ0JMLEFHd0NJLElIeENBLEFBQUEsTUFBTSxDR3hCVixZQUFZLENBZ0VSLEtBQUssQ0FBQztDQUNGLFNBQVMsRUFBRSxPQUFRO0NBQ3RCOztBSDFDTCxBSXZCSSxJSnVCQSxBQUFBLE1BQU0sQ0l4QlYsVUFBVSxDQUNOLFdBQVcsQ0FBQztDQUNSLE1BQU0sRUFBRSxlQUFTO0NBQ2pCLFVBQVUsRUFBRSxHQUFJO0NBTW5COztBSmVMLEFJdkJJLElKdUJBLEFBQUEsTUFBTSxDSXhCVixVQUFVLENBQ04sV0FBVyxBQUdOLE1BQU0sQ0FBQztDQUNKLE1BQU0sRUFBRSxZQUFTO0NBQ2pCLFVBQVUsRUFBRSxHQUFHLENBQUMsR0FBRyxDQUFDLElBQUksQ0FBQyxHQUFHLENBQUMsa0JBQUk7Q0FDakMsV0FBVyxFQUFFLEdBQUcsQ0FBQyxNQUFNLENBQUMsS0FBSyxDQUFDLGtCQUFJO0NBQ3JDIiwibmFtZXMiOltdfQ== */
 
 /*# sourceMappingURL=style.css.map */
