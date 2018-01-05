@@ -4,9 +4,6 @@
 function kasil_body_classes($classes)
 {
     $classes[] = 'kasil';
-        if (is_404()) {
-        $classes[] = 'et_pb_gutters' . et_get_option( 'gutter_width', '3' );
-    }
     return $classes;
 }
 
@@ -24,6 +21,26 @@ function my_theme_enqueue_styles() {
         array( $parent_style ),
         wp_get_theme()->get('Version')
     );
+
 }
 add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
+
+// Custom JS
+function kasil_custom_scripts () {
+    wp_enqueue_script( 
+        'custom', 
+        get_stylesheet_directory_uri() . '/src/js/custom.js', 
+        array(
+            'jquery',
+            'jquery-ui-draggable'
+        ),
+        false,
+        true
+        // false, 
+        // TRUE
+    );
+}
+add_action ('wp_enqueue_scripts', 'kasil_custom_scripts');
+// wp_enqueue_script( 'orbit-et-builder-modules-global-functions-script', get_stylesheet_directory_uri() . '/includes/builder/scripts/frontend-builder-global-functions.js', ['jquery'], '1.0', TRUE );
+// wp_enqueue_script( 'orbit-et-builder-modules-script', get_stylesheet_directory_uri() . '/includes/builder/scripts/frontend-builder-scripts.js', ['jquery', 'et-builder-modules-script'], '1.0', TRUE );
 ?>

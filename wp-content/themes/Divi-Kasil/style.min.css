@@ -1,5 +1,6 @@
 body.kasil .et_pb_button{padding:1em !important;background-color:#f78d1f;box-shadow:0 12px 51px rgba(0,0,0,0.21);background-image:-webkit-linear-gradient(247deg,#f68915,#e06c16);background-image:linear-gradient(-157deg,#f68915,#e06c16)}
 body.kasil .et_pb_button:hover{padding:1em !important}
+body.kasil #main-footer{background-image:url("src/assets/img/footer overlay.png");background-position:top right;background-repeat:no-repeat;background-size:contain}
 body.kasil #main-header #logo{-webkit-transform:inherit;-ms-transform:inherit;transform:inherit}
 body.kasil .team-link .et_pb_text{-webkit-filter:grayscale(100%);filter:grayscale(100%);-webkit-transition:.5s;transition:.5s}
 body.kasil .team-link .et_pb_text:hover{-webkit-filter:grayscale(0);filter:grayscale(0);box-shadow:0 5px 18px 5px rgba(0,0,0,0.3);text-shadow:0 .39em .6em rgba(0,0,0,0.7)}
