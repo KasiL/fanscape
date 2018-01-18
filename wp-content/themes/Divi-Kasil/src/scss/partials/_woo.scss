@@ -1,20 +1,26 @@
 //woo commerce styling
+//top breadcrumb
 .woocommerce-breadcrumb {
     font-weight: 700;
     a {
         color: #fb8523;
     }
 }
-.product {
-    .button {
-        color: #fff;
-        
-        background: #fb8523;
-        
-        &:hover {
-            background: #f78d1f;
-        }
+//message after cart
+.woocommerce-message {
+    background-color: #cccccc !important;
+}
+//woo-commerce button style
+.button {
+    color: #fff !important;
+    background: #fb8523 !important;
+    
+    &:hover {
+        background: #f78d1f !important;
     }
+}
+//detail page product
+.product {
     //adds space between image and desc
     .woocommerce-product-gallery {
         margin-bottom: 25px !important;
