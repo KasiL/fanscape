@@ -10,7 +10,15 @@
 .woocommerce-message {
     background-color: #cccccc !important;
 }
+//detail page product
+.product {
+    //adds space between image and desc
+    .woocommerce-product-gallery {
+        margin-bottom: 25px !important;
+    }
+}
 //woo-commerce button style
+// button styles all over the form are <input>s
 .button {
     color: #fff !important;
     background: #fb8523 !important;
@@ -19,11 +27,21 @@
         background: #f78d1f !important;
     }
 }
-//detail page product
-.product {
-    //adds space between image and desc
-    .woocommerce-product-gallery {
-        margin-bottom: 25px !important;
+input {
+    &[type="submit"] {
+        margin-top: 10px;
+        color: #fff;
+        background: #fb8523;
+        border-radius: 5px;
+        text-align: center;
+        border: none;
+        padding: 5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        
+        &:hover {
+         background: #f78d1f;
+        }
     }
 }
 //right sidebar
@@ -32,27 +50,20 @@
         input {
             width: 100%;
             padding: 5px 2px;
-
-            &[type="submit"] {
-                margin-top: 10px;
-                color: #fff;
-                background: #fb8523;
-                border-radius: 5px;
-                text-align: center;
-                border: none;
-                padding: 5px;
-                font-weight: 700;
-                text-transform: uppercase;
-                
-                &:hover {
-                 background: #f78d1f;
-                }
-            }
         }
     }
     .product-categories {
         .current-cat.cat-parent > a {
             font-weight: 700;
         }
+    }
+}
+
+//checkout form
+//fields have weird padding
+#customer_details {
+    input {
+        padding: 5px 10px;
+        line-height: 2;
     }
 }

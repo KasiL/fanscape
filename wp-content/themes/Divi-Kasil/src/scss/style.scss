@@ -36,7 +36,9 @@ body.kasil {
 	// @import 'partials/widgets';
 	// @import 'partials/wp-defaults';
 	// @import 'partials/utilities';
-	&.woocommerce {
+	&.woocommerce,
+	&.woocommerce-page,
+	&.woocommerce-cart {
 		@import 'partials/woo';
 	}
 }
