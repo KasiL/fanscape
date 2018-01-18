@@ -2,6 +2,7 @@
     .et_pb_text {
         filter: grayscale(100%);
         transition: .5s;
+        
         &:hover {
             filter: grayscale(0);
             box-shadow: 0px 5px 18px 5px rgba(0, 0, 0, 0.3);

@@ -2,5 +2,32 @@
     background-image: url("src/assets/img/footer overlay.png");
     background-position: top right;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
+
+    #footer-widgets {
+        li::before {
+            display: none;
+        }
+        a {
+            transition: .3s;
+            
+            &:hover {
+                color: #f99e26;
+            }
+        }
+        .footer-widget:last-of-type {
+            @media (min-width:$screen-tab-min) and (max-width:$screen-tab-max) {
+                width: 85% !important;
+            }
+            .product-categories {
+                display: grid;
+                @media (min-width:$screen-tab-min) and (max-width:$screen-tab-max) {
+                    grid-template-columns: 1fr 1fr 1fr 1fr;
+                }
+                @media (min-width:$screen-sm-min) {
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+        }
+    }
 }
