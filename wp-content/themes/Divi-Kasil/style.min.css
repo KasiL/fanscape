@@ -1,6 +1,9 @@
 body.kasil .et_pb_button{padding:1em !important;background-color:#f78d1f;box-shadow:0 12px 51px rgba(0,0,0,0.21);background-image:-webkit-linear-gradient(247deg,#f68915,#e06c16);background-image:linear-gradient(-157deg,#f68915,#e06c16)}
 body.kasil .et_pb_button:hover{padding:1em !important}
 body.kasil #main-footer{background-image:url("src/assets/img/footer overlay.png");background-position:top right;background-repeat:no-repeat;background-size:cover}
+body.kasil #main-footer #footer-widgets .et_pb_button{color:#fff;text-align:center}
+body.kasil #main-footer #footer-widgets .et_pb_button a:hover{color:#fff !important}
+body.kasil #main-footer #footer-widgets li.cat-parent>a{font-weight:700}
 body.kasil #main-footer #footer-widgets li::before{display:none}
 body.kasil #main-footer #footer-widgets a{-webkit-transition:.3s;transition:.3s}
 body.kasil #main-footer #footer-widgets a:hover{color:#f99e26}
@@ -8,6 +11,15 @@ body.kasil #main-footer #footer-widgets .footer-widget:last-of-type .product-cat
 body.kasil #main-header #logo{-webkit-transform:inherit;-ms-transform:inherit;transform:inherit}
 body.kasil .team-link .et_pb_text{-webkit-filter:grayscale(100%);filter:grayscale(100%);-webkit-transition:.5s;transition:.5s}
 body.kasil .team-link .et_pb_text:hover{-webkit-filter:grayscale(0);filter:grayscale(0);box-shadow:0 5px 18px 5px rgba(0,0,0,0.3);text-shadow:0 .39em .6em rgba(0,0,0,0.7)}
+body.kasil.woocommerce .woocommerce-breadcrumb{font-weight:700}
+body.kasil.woocommerce .woocommerce-breadcrumb a{color:#fb8523}
+body.kasil.woocommerce .product .button{color:#fff;background:#fb8523}
+body.kasil.woocommerce .product .button:hover{background:#f78d1f}
+body.kasil.woocommerce .product .woocommerce-product-gallery{margin-bottom:25px !important}
+body.kasil.woocommerce #sidebar .woocommerce-product-search input{width:100%;padding:5px 2px}
+body.kasil.woocommerce #sidebar .woocommerce-product-search input[type="submit"]{margin-top:10px;color:#fff;background:#fb8523;border-radius:5px;text-align:center;border:0;padding:5px;font-weight:700;text-transform:uppercase}
+body.kasil.woocommerce #sidebar .woocommerce-product-search input[type="submit"]:hover{background:#f78d1f}
+body.kasil.woocommerce #sidebar .product-categories .current-cat.cat-parent>a{font-weight:700}
 @media(min-width:768px) and (max-width:980px){body.kasil #main-footer #footer-widgets .footer-widget:last-of-type{width:85% !important}
 body.kasil #main-footer #footer-widgets .footer-widget:last-of-type .product-categories{-ms-grid-columns:1fr 1fr 1fr 1fr;grid-template-columns:1fr 1fr 1fr 1fr}
 }@media(min-width:981px){body.kasil #main-footer #footer-widgets .footer-widget:last-of-type .product-categories{-ms-grid-columns:1fr 1fr;grid-template-columns:1fr 1fr}

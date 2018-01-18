@@ -1,0 +1,52 @@
+//woo commerce styling
+.woocommerce-breadcrumb {
+    font-weight: 700;
+    a {
+        color: #fb8523;
+    }
+}
+.product {
+    .button {
+        color: #fff;
+        
+        background: #fb8523;
+        
+        &:hover {
+            background: #f78d1f;
+        }
+    }
+    //adds space between image and desc
+    .woocommerce-product-gallery {
+        margin-bottom: 25px !important;
+    }
+}
+//right sidebar
+#sidebar {
+    .woocommerce-product-search {
+        input {
+            width: 100%;
+            padding: 5px 2px;
+
+            &[type="submit"] {
+                margin-top: 10px;
+                color: #fff;
+                background: #fb8523;
+                border-radius: 5px;
+                text-align: center;
+                border: none;
+                padding: 5px;
+                font-weight: 700;
+                text-transform: uppercase;
+                
+                &:hover {
+                 background: #f78d1f;
+                }
+            }
+        }
+    }
+    .product-categories {
+        .current-cat.cat-parent > a {
+            font-weight: 700;
+        }
+    }
+}

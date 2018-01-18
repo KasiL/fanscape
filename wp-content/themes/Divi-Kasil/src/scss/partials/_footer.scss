@@ -5,8 +5,21 @@
     background-size: cover;
 
     #footer-widgets {
-        li::before {
-            display: none;
+        .et_pb_button {
+            color: #fff;
+            text-align: center;
+            
+            a:hover {
+                color: #fff !important;
+            }
+        }
+        li {
+            &.cat-parent >a {
+                font-weight: 700;
+            }
+            &::before {
+                display: none;
+            }
         }
         a {
             transition: .3s;
