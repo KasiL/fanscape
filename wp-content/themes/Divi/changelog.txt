@@ -1,5 +1,40 @@
-version 3.0.96  ( updated 01-7-2018 )
-- Fixed an information exposure vulnerability that mistakenly displayed some small amount of content from password protected posts inside of post feeds as part of the automatically generated post excerpt. If you are using password protected posts, it's important that you update your theme to prevent parts of your password protected content from being seen by your visitors. As part of this disclosure, we have emailed all Elegant Themes customers with detailed information about the problem and how to fix it: https://mailchi.mp/elegantthemes/elegant-themes-security-update
+version 3.0.98 ( updated 01-22-2018 )
+- Fixed the issue when Text-align justify was not applied.
+- Fixes a bug that would cause discarded changes to be shown again in the settings modal under some circumstances.
+- Fixed inability to assign custom bottom padding for Slider Module on mobile and 1/4 column layout.
+- Fixed the issue when non-default letter-spacing causes visual issues in Safari.
+- Fixed incorrect totals displayed on Divi Leads report on VB which caused different totals than what is displayed on BB.
+- Fixed Video module compatibility between Box Shadow and Border Radius.
+- Fix issue with HTML being escaped in child modules, including the Pricing Table and Slider Modules.
+- Set Text module font settings default value from Theme Customizer.
+- Improved Range input support in Visual Builder for IE11.
+- Added Alt Text option for Full Width Header.
+- Added DK PDF plugin compatibility.
+- Fixed Pricing Tables inner shadow appearance behind the tables.
+- Prevent preset options to inherit parent values as default value.
+- Fixed page settings bar toggle for sensitive mouses.
+- Centered Accordion Add button.
+- Fixed portability loading bar while importing.
+	* includes/builder/ab-testing.php
+	* includes/builder/class-et-builder-element.php
+	* includes/builder/framework.php
+	* includes/builder/frontend-builder/bundle.js
+	* includes/builder/module/FullwidthHeader.php
+	* includes/builder/module/PricingTables.php
+	* includes/builder/module/Text.php
+	* includes/builder/plugin-compat/dk-pdf.php
+	* includes/builder/scripts/builder.js
+	* includes/builder/scripts/frontend-builder-scripts.js
+	* includes/builder/styles/frontend-builder-style.css
+
+version 3.0.97  ( updated 01-18-2018 )
+- Added the Divi Builder Help System. Now you can browse documentation videos and following along with over 70 full length instructional videos while you build your page, without ever leving the builder!
+	* includes/builder/frontend-builder/helpers.php
+	* includes/builder/frontend-builder/bundle.js
+	* includes/builder/frontend-builder/assets/css/style.css
+
+version 3.0.96  ( updated 01-17-2018 )
+- Fixed an unintended information exposure within password protected post exceprts that mistakenly displayed some small amount of content from password protected posts inside of post feeds as part of the automatically generated post excerpt. If you are using password protected posts, it's important that you update your theme to prevent parts of your password protected content from being seen by your visitors. As part of this disclosure, we have emailed all Elegant Themes customers with detailed information about the problem and how to fix it: https://mailchi.mp/elegantthemes/elegant-themes-security-update
 - Fixed the issue when js scripts from modules content were executed in Backend Builder in some cases.
 - Fixed unsaved Divi Leads not being backup into browser backup
 - Changed pagination line height default value to '1.7em' in Portfolio modules.

@@ -6186,6 +6186,10 @@ class ET_Builder_Element {
 
 	function get_text_orientation_classname( $print_default = false ) {
 		$text_orientation = $this->get_text_orientation();
+
+		// Should be `justified` instead of justify in classname.
+		$text_orientation = 'justify' === $text_orientation ? 'justified' : $text_orientation;
+		
 		$default_classname = $print_default ? ' et_pb_text_align_left' : '';
 
 		return '' !== $text_orientation ? " et_pb_text_align_{$text_orientation}" : $default_classname;

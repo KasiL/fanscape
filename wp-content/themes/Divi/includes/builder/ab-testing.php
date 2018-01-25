@@ -511,7 +511,15 @@ function et_pb_ab_get_stats_data( $post_id, $duration = 'week', $time = false, $
 
 			// Push color data
 			foreach ( $cached_subjects_ranks as $subject_rank_id => $subject_rank_value ) {
-				$cached_data['subjects_totals'][ $subject_rank_id ]['color'] = isset( $subject_rank_colors[ $cached_subjects_ranks_index ] ) ? $subject_rank_colors[ $cached_subjects_ranks_index ] : '#7E0000';
+				$is_empty_rank_value    = 0 === $subject_rank_value;
+				$has_subject_rank_color = isset( $subject_rank_colors[ $cached_subjects_ranks_index ] );
+
+				// If the rank value (derived from engagement) is empty, display default subject color
+				if ( $is_empty_rank_value ) {
+					$cached_data['subjects_totals'][ $subject_rank_id ]['color'] = '#F3CB57';
+				} else {
+					$cached_data['subjects_totals'][ $subject_rank_id ]['color'] = $has_subject_rank_color ? $subject_rank_colors[ $cached_subjects_ranks_index ] : '#7E0000';
+				}
 
 				$cached_subjects_ranks_index++;
 			}
@@ -666,7 +674,7 @@ function et_pb_ab_get_stats_data( $post_id, $duration = 'week', $time = false, $
 				$denominator       = isset( $stats['subjects_totals'][ $subject_log_id ][ $denominator_event ] ) ? $stats['subjects_totals'][ $subject_log_id ][ $denominator_event ] : 0;
 				$analysis          = $denominator === 0 ? 0 : floatval( number_format( ( $numerator / $denominator ) * 100, 2 ) );
 
-				if ( $analysis_formulas[ $analysis_type ]['inverse'] ) {
+				if ( $analysis_formulas[ $analysis_type ]['inverse'] && 0 !== $numerator && 0 !== $denominator_event ) {
 					$analysis = 100 - $analysis;
 				}
 
@@ -713,7 +721,15 @@ function et_pb_ab_get_stats_data( $post_id, $duration = 'week', $time = false, $
 
 		// Push color data
 		foreach ( $subjects_ranks as $subject_rank_id => $subject_rank_value ) {
-			$stats['subjects_totals'][ $subject_rank_id ]['color'] = isset( $subject_rank_colors[ $subjects_ranks_index ] ) ? $subject_rank_colors[ $subjects_ranks_index ] : '#7E0000';
+			$is_empty_rank_value    = 0 === $subject_rank_value;
+			$has_subject_rank_color = isset( $subject_rank_colors[ $subjects_ranks_index ] );
+
+			// If the rank value (derived from engagement) is empty, display default subject color
+			if ( $is_empty_rank_value ) {
+				$stats['subjects_totals'][ $subject_rank_id ]['color'] = '#F3CB57';
+			} else {
+				$stats['subjects_totals'][ $subject_rank_id ]['color'] = $has_subject_rank_color ? $subject_rank_colors[ $subjects_ranks_index ] : '#7E0000';
+			}
 
 			$subjects_ranks_index++;
 		}

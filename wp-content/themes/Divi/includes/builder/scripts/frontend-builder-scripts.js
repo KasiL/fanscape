@@ -5252,5 +5252,21 @@
 
 	$(document).ready(function(){
 		( et_pb_box_shadow_elements||[] ).map(et_pb_box_shadow_apply_overlay);
-	})
+	});
+
+	$(window).load(function() {
+		var $body = $('body');
+		// fix Safari letter-spacing bug when styles applied in `head`
+		// Trigger styles redraw by changing body display property to differentvalue and reverting it back to original.
+		if ($body.hasClass('safari')){
+			var original_display_value = $body.css('display');
+			var different_display_value = 'initial' === original_display_value ? 'block' : 'initial';
+
+			$body.css({ 'display': different_display_value });
+
+			setTimeout(function() {
+				$body.css({ 'display': original_display_value });
+			}, 0);
+		}
+	});
 })(jQuery);

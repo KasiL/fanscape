@@ -5,7 +5,7 @@ window.wp = window.wp || {};
 /**
  * The builder version and product name will be updated by grunt release task. Do not edit!
  */
-window.et_builder_version = '3.0.96';
+window.et_builder_version = '3.0.98';
 window.et_builder_product_name = 'Divi';
 
 ( function($) {
@@ -4593,8 +4593,7 @@ window.et_builder_product_name = 'Divi';
 				// Replace double quotes with ^^ in temporary shortcodes
 				content = content.replace( /%22/g, '^^' );
 
-				// escape content to avoid scrupts execution in settings modal
-				this.$content_textarea.html(_.escape(content));
+				this.$content_textarea.html( content );
 
 				if ( ! this.$sortable_options.find( 'li' ).length )
 					this.$add_sortable_item.addClass( 'et-pb-add-sortable-initial' );
@@ -5444,9 +5443,9 @@ window.et_builder_product_name = 'Divi';
 					setTimeout( function() {
 						if ( typeof window.switchEditors !== 'undefined' )
 							window.switchEditors.go( 'et_pb_content_new', et_get_editor_mode() );
-						
-						// unescape content which was escaped previously
-						et_pb_set_content('et_pb_content_new', _.unescape(content));
+
+
+						et_pb_set_content('et_pb_content_new', content);
 
 						window.wpActiveEditor = 'et_pb_content_new';
 					}, 300 );
@@ -13169,13 +13168,13 @@ window.et_builder_product_name = 'Divi';
 			if ( $advanced_tab.length ) {
 				$advanced_tab_settings.each( function() {
 					var $this_option = $( this );
-					var $option_main_input;
+					var option_id = $this_option.attr('id');
 					var defaultKey = '';
 					var parentDefault = '';
 
 					// process range options
 					if ( $this_option.hasClass( 'et-pb-range' ) ) {
-						$option_main_input = $this_option.siblings( '.et-pb-range-input' );
+						var $option_main_input = $this_option.siblings( '.et-pb-range-input' );
 						parentDefault = $option_main_input.data(defaultKey) || "";
 
 						$option_main_input.each( function() {
@@ -13202,8 +13201,9 @@ window.et_builder_product_name = 'Divi';
 								$current_option.data( 'default', option_parent.val() );
 							}
 						} );
+					} else if ($this_option.closest('.et-presets').length) {
+						//Presets should not inherit parent value as default value
 					} else {
-						var option_id = $this_option.attr('id');
 						var option_parent = $( '#' + option_id );
 
 						if ( option_parent.length ) {
