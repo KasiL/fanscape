@@ -1,4 +1,8 @@
 //woo commerce styling
+//hide pricing
+.summary .price {
+    display: none;
+}
 //top breadcrumb
 .woocommerce-breadcrumb {
     font-weight: 700;
