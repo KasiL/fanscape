@@ -18,20 +18,23 @@ final class ITSEC_Hide_Backend_Settings extends ITSEC_Settings {
 
 	protected function handle_settings_changes( $old_settings ) {
 
-		if ( $this->settings['enabled'] && $this->settings['slug'] !== $old_settings['slug'] ) {
-			$url = get_site_url() . '/' . $this->settings['slug'];
-		} elseif ( $this->settings['enabled'] && ! $old_settings['enabled'] ) {
-			$url = get_site_url() . '/' . $this->settings['slug'];
+		if ( $this->settings['enabled'] && ! $old_settings['enabled'] ) {
+			$url      = get_site_url() . '/' . $this->settings['slug'];
+			$enabling = true;
 		} elseif ( ! $this->settings['enabled'] && $old_settings['enabled'] ) {
-			$url = get_site_url() . '/wp-login.php';
+			$url      = get_site_url() . '/wp-login.php';
+			$enabling = false;
+		} elseif ( $this->settings['enabled'] && $this->settings['slug'] !== $old_settings['slug'] ) {
+			$url      = get_site_url() . '/' . $this->settings['slug'];
+			$enabling = false;
 		} else {
 			return;
 		}
 
-		$this->send_new_login_url( $url );
+		$this->send_new_login_url( $url, $enabling );
 	}
 
-	private function send_new_login_url( $url ) {
+	private function send_new_login_url( $url, $enabling ) {
 		if ( ITSEC_Core::doing_data_upgrade() ) {
 			// Do not send emails when upgrading data. This prevents spamming users with notifications just because the
 			// data was ported from an old version to a new version.
@@ -39,7 +42,11 @@ final class ITSEC_Hide_Backend_Settings extends ITSEC_Settings {
 		}
 
 		$nc = ITSEC_Core::get_notification_center();
-		$nc->clear_notifications_cache();
+
+		if ( $enabling ) {
+			$nc->clear_notifications_cache();
+			ITSEC_Modules::get_settings_obj( 'notification-center' )->load();
+		}
 
 		$mail = $nc->mail();
 

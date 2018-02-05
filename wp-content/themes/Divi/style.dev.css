@@ -1,7 +1,7 @@
 /*!
 Theme Name: Divi
 Theme URI: http://www.elegantthemes.com/gallery/divi/
-Version: 3.0.98
+Version: 3.0.100
 Description: Smart. Flexible. Beautiful. Divi is the most powerful theme in our collection.
 Author: Elegant Themes
 Author URI: http://www.elegantthemes.com
@@ -7916,7 +7916,7 @@ body.iphone .et_pb_contact_form select {
 }
 
 /* Column Adjustments */
-.logged-in .et_pb_login .et_pb_newsletter_description,
+.logged-in:not(.et-fb) .et_pb_login .et_pb_newsletter_description,
 .et_pb_column_1_2 .et_pb_newsletter_form,
 .et_pb_column_1_2 .et_pb_newsletter_description,
 .et_pb_column_3_8.et_pb_column_inner .et_pb_newsletter_form,
@@ -7926,7 +7926,9 @@ body.iphone .et_pb_contact_form select {
 .et_pb_column_1_3.et_pb_column_inner .et_pb_newsletter_form,
 .et_pb_column_1_3.et_pb_column_inner .et_pb_newsletter_description,
 .et_pb_column_1_4 .et_pb_newsletter_form,
-.et_pb_column_1_4 .et_pb_newsletter_description {
+.et_pb_column_1_4 .et_pb_newsletter_description,
+.et_pb_column_1_4.et_pb_column_inner .et_pb_newsletter_form,
+.et_pb_column_1_4.et_pb_column_inner .et_pb_newsletter_description {
 	width: 100%;
 	padding: 0;
 }
@@ -9879,18 +9881,8 @@ a.et_pb_more_button:after,
 	position: relative;
 	width: 100%;
 	margin-right: -100%;
-	-webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
-	-moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
-	box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
 	text-align: center;
 	list-style: none !important;
-}
-
-.format-gallery .et_pb_slider .et_pb_slide,
-.et_pb_slider_no_shadow .et_pb_slide {
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
 }
 
 .format-gallery .et_pb_slider.gallery-not-found .et_pb_slide {
@@ -10630,6 +10622,7 @@ ul.et_pb_social_media_follow {
 	width: 100%;
 	height: 100%;
 	background-color: #222;
+	pointer-events: none;
 }
 
 .et_pb_section_video_bg .mejs-controls,
@@ -14950,11 +14943,6 @@ span.comment_date {
 	}
 
 /* Grid Layouts: Gallery, Portfolio, Filterable Portfolio, Shop */
-	.et_pb_filterable_portfolio_grid,
-	.et_pb_gallery_grid {
-		display: none;
-	}
-
 	.et_pb_gallery_grid .et_pb_gallery_item,
 	.et_pb_portfolio_grid .et_pb_portfolio_item,
 	.et_pb_filterable_portfolio_grid .et_pb_portfolio_item {
@@ -15817,7 +15805,11 @@ span.comment_date {
 	}
 
 	.et_pb_column .et_pb_newsletter_form,
-	.et_pb_column.et_pb_column_inner .et_pb_newsletter_form {
+	.et_pb_column.et_pb_column_inner .et_pb_newsletter_form,
+	.et_pb_row_1-4_3-4 .et_pb_column.et_pb_column_1_4 .et_pb_newsletter_form,
+	.et_pb_row_1-4_3-4 .et_pb_column.et_pb_column_1_4.et_pb_column_inner .et_pb_newsletter_form,
+	.et_pb_row_3-4_1-4 .et_pb_column.et_pb_column_1_4 .et_pb_newsletter_form,
+	.et_pb_row_3-4_1-4 .et_pb_column.et_pb_column_1_4.et_pb_column_inner .et_pb_newsletter_form {
 		padding-left: 40px;
 	}
 
@@ -15825,6 +15817,13 @@ span.comment_date {
 	.et_pb_column.et_pb_column_1_4 .et_pb_newsletter_description {
 		width: 100%;
 		padding: 0;
+	}
+
+	.et_pb_row_1-4_3-4 .et_pb_column.et_pb_column_1_4 .et_pb_newsletter_form,
+	.et_pb_row_1-4_3-4 .et_pb_column.et_pb_column_1_4 .et_pb_newsletter_description,
+	.et_pb_row_3-4_1-4 .et_pb_column.et_pb_column_1_4 .et_pb_newsletter_form,
+	.et_pb_row_3-4_1-4 .et_pb_column.et_pb_column_1_4 .et_pb_newsletter_description {
+		width: 50%;
 	}
 
 /* Pricing Tables Module */
@@ -16343,7 +16342,14 @@ span.comment_date {
 	.et_pb_column .et_pb_newsletter_form,
 	.et_pb_column .et_pb_newsletter_description,
 	.et_pb_column.et_pb_column_inner .et_pb_newsletter_form,
-	.et_pb_column.et_pb_column_inner .et_pb_newsletter_description {
+	.et_pb_column.et_pb_column_inner .et_pb_newsletter_description,
+	.et_pb_row_1-4_3-4 .et_pb_column.et_pb_column_1_4 .et_pb_newsletter_form,
+	.et_pb_row_1-4_3-4 .et_pb_column.et_pb_column_1_4 .et_pb_newsletter_description,
+	.et_pb_row_1-4_3-4 .et_pb_column.et_pb_column_1_4.et_pb_column_inner .et_pb_newsletter_form,
+	.et_pb_row_1-4_3-4 .et_pb_column.et_pb_column_1_4.et_pb_column_inner .et_pb_newsletter_description,
+	.et_pb_row_3-4_1-4 .et_pb_column.et_pb_column_1_4 .et_pb_newsletter_form,
+	.et_pb_row_3-4_1-4 .et_pb_column.et_pb_column_1_4 .et_pb_newsletter_description,
+	.et_pb_row_3-4_1-4 .et_pb_column.et_pb_column_1_4.et_pb_column_inner .et_pb_newsletter_form {
 		width: 100%;
 		padding: 0;
 	}

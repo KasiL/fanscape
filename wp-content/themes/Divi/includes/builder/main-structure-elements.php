@@ -115,18 +115,21 @@ class ET_Builder_Section extends ET_Builder_Structure_Element {
 			'background_video_width_1',
 			'background_video_height_1',
 			'allow_player_pause_1',
+			'background_video_pause_outside_viewport_1',
 			'__video_background_1',
 			'background_video_mp4_2',
 			'background_video_webm_2',
 			'background_video_width_2',
 			'background_video_height_2',
 			'allow_player_pause_2',
+			'background_video_pause_outside_viewport_2',
 			'__video_background_2',
 			'background_video_mp4_3',
 			'background_video_webm_3',
 			'background_video_width_3',
 			'background_video_height_3',
 			'allow_player_pause_3',
+			'background_video_pause_outside_viewport_3',
 			'__video_background_3',
 		);
 
@@ -216,6 +219,7 @@ class ET_Builder_Section extends ET_Builder_Structure_Element {
 		$this->fields_defaults = array(
 			'background_color'       => array( '', 'only_default_setting' ),
 			'allow_player_pause'     => array( 'off' ),
+			'background_video_pause_outside_viewport' => array( 'on' ),
 			'inner_shadow'           => array( 'off' ),
 			'parallax'               => array( 'off' ),
 			'parallax_method'        => array( 'on' ),
@@ -705,6 +709,12 @@ class ET_Builder_Section extends ET_Builder_Structure_Element {
 					'__video_background_1',
 				),
 			),
+			'background_video_pause_outside_viewport_1' => array(
+				'type' => 'skip',
+				'computed_affects'   => array(
+					'__video_background_1',
+				),
+			),
 			'__video_background_1' => array(
 				'type' => 'computed',
 				'computed_callback' => array( 'ET_Builder_Column', 'get_column_video_background' ),
@@ -749,6 +759,12 @@ class ET_Builder_Section extends ET_Builder_Structure_Element {
 					'__video_background_2',
 				),
 			),
+			'background_video_pause_outside_viewport_2' => array(
+				'type' => 'skip',
+				'computed_affects'   => array(
+					'__video_background_2',
+				),
+			),
 			'__video_background_2' => array(
 				'type' => 'computed',
 				'computed_callback' => array( 'ET_Builder_Column', 'get_column_video_background' ),
@@ -788,6 +804,12 @@ class ET_Builder_Section extends ET_Builder_Structure_Element {
 				),
 			),
 			'allow_player_pause_3' => array(
+				'type' => 'skip',
+				'computed_affects'   => array(
+					'__video_background_3',
+				),
+			),
+			'background_video_pause_outside_viewport_3' => array(
 				'type' => 'skip',
 				'computed_affects'   => array(
 					'__video_background_3',
@@ -1003,6 +1025,9 @@ class ET_Builder_Section extends ET_Builder_Structure_Element {
 		$allow_player_pause_1       = $this->shortcode_atts['allow_player_pause_1'];
 		$allow_player_pause_2       = $this->shortcode_atts['allow_player_pause_2'];
 		$allow_player_pause_3       = $this->shortcode_atts['allow_player_pause_3'];
+		$background_video_pause_outside_viewport_1 = $this->shortcode_atts['background_video_pause_outside_viewport_1'];
+		$background_video_pause_outside_viewport_2 = $this->shortcode_atts['background_video_pause_outside_viewport_2'];
+		$background_video_pause_outside_viewport_3 = $this->shortcode_atts['background_video_pause_outside_viewport_3'];
 
 		if ( '' !== $global_module ) {
 			$global_content = et_pb_load_global_module( $global_module );
@@ -1100,6 +1125,7 @@ class ET_Builder_Section extends ET_Builder_Structure_Element {
 					'background_video_width'       => $background_video_width_1,
 					'background_video_height'      => $background_video_height_1,
 					'background_video_allow_pause' => $allow_player_pause_1,
+					'background_video_pause_outside_viewport' => $background_video_pause_outside_viewport_1,
 				),
 				array(
 					'background_video_mp4'         => $background_video_mp4_2,
@@ -1107,6 +1133,7 @@ class ET_Builder_Section extends ET_Builder_Structure_Element {
 					'background_video_width'       => $background_video_width_2,
 					'background_video_height'      => $background_video_height_2,
 					'background_video_allow_pause' => $allow_player_pause_2,
+					'background_video_pause_outside_viewport' => $background_video_pause_outside_viewport_2,
 				),
 				array(
 					'background_video_mp4'         => $background_video_mp4_3,
@@ -1114,6 +1141,7 @@ class ET_Builder_Section extends ET_Builder_Structure_Element {
 					'background_video_width'       => $background_video_width_3,
 					'background_video_height'      => $background_video_height_3,
 					'background_video_allow_pause' => $allow_player_pause_3,
+					'background_video_pause_outside_viewport' => $background_video_pause_outside_viewport_3,
 				),
 			);
 
@@ -1161,7 +1189,7 @@ class ET_Builder_Section extends ET_Builder_Structure_Element {
 				array( $parallax_2, $parallax_method_2 ),
 				array( $parallax_3, $parallax_method_3 ),
 			);
-			
+
 			if ( 'on' === $make_fullwidth && 'off' === $use_custom_width ) {
 				$module_class .= ' et_pb_specialty_fullwidth';
 			}
@@ -1570,24 +1598,28 @@ class ET_Builder_Row extends ET_Builder_Structure_Element {
 			'background_video_width_1',
 			'background_video_height_1',
 			'allow_player_pause_1',
+			'background_video_pause_outside_viewport_1',
 			'__video_background_1',
 			'background_video_mp4_2',
 			'background_video_webm_2',
 			'background_video_width_2',
 			'background_video_height_2',
 			'allow_player_pause_2',
+			'background_video_pause_outside_viewport_2',
 			'__video_background_2',
 			'background_video_mp4_3',
 			'background_video_webm_3',
 			'background_video_width_3',
 			'background_video_height_3',
 			'allow_player_pause_3',
+			'background_video_pause_outside_viewport_3',
 			'__video_background_3',
 			'background_video_mp4_4',
 			'background_video_webm_4',
 			'background_video_width_4',
 			'background_video_height_4',
 			'allow_player_pause_4',
+			'background_video_pause_outside_viewport_4',
 			'__video_background_4',
 		);
 
@@ -2084,6 +2116,12 @@ class ET_Builder_Row extends ET_Builder_Structure_Element {
 					'__video_background_1',
 				),
 			),
+			'background_video_pause_outside_viewport_1' => array(
+				'type' => 'skip',
+				'computed_affects'   => array(
+					'__video_background_1',
+				),
+			),
 			'__video_background_1' => array(
 				'type' => 'computed',
 				'computed_callback' => array( 'ET_Builder_Column', 'get_column_video_background' ),
@@ -2123,6 +2161,12 @@ class ET_Builder_Row extends ET_Builder_Structure_Element {
 				),
 			),
 			'allow_player_pause_2' => array(
+				'type' => 'skip',
+				'computed_affects'   => array(
+					'__video_background_2',
+				),
+			),
+			'background_video_pause_outside_viewport_2' => array(
 				'type' => 'skip',
 				'computed_affects'   => array(
 					'__video_background_2',
@@ -2172,6 +2216,12 @@ class ET_Builder_Row extends ET_Builder_Structure_Element {
 					'__video_background_3',
 				),
 			),
+			'background_video_pause_outside_viewport_3' => array(
+				'type' => 'skip',
+				'computed_affects'   => array(
+					'__video_background_3',
+				),
+			),
 			'__video_background_3' => array(
 				'type' => 'computed',
 				'computed_callback' => array( 'ET_Builder_Column', 'get_column_video_background' ),
@@ -2211,6 +2261,12 @@ class ET_Builder_Row extends ET_Builder_Structure_Element {
 				),
 			),
 			'allow_player_pause_4' => array(
+				'type' => 'skip',
+				'computed_affects'   => array(
+					'__video_background_4',
+				),
+			),
+			'background_video_pause_outside_viewport_4' => array(
 				'type' => 'skip',
 				'computed_affects'   => array(
 					'__video_background_4',
@@ -2552,6 +2608,10 @@ class ET_Builder_Row extends ET_Builder_Structure_Element {
 		$allow_player_pause_2       = $this->shortcode_atts['allow_player_pause_2'];
 		$allow_player_pause_3       = $this->shortcode_atts['allow_player_pause_3'];
 		$allow_player_pause_4       = $this->shortcode_atts['allow_player_pause_4'];
+		$background_video_pause_outside_viewport_1 = $this->shortcode_atts['background_video_pause_outside_viewport_1'];
+		$background_video_pause_outside_viewport_2 = $this->shortcode_atts['background_video_pause_outside_viewport_2'];
+		$background_video_pause_outside_viewport_3 = $this->shortcode_atts['background_video_pause_outside_viewport_3'];
+		$background_video_pause_outside_viewport_4 = $this->shortcode_atts['background_video_pause_outside_viewport_4'];
 
 		global $et_pb_all_column_settings, $et_pb_rendering_column_content, $et_pb_rendering_column_content_row;
 
@@ -2670,6 +2730,7 @@ class ET_Builder_Row extends ET_Builder_Structure_Element {
 				'background_video_width'       => $background_video_width_1,
 				'background_video_height'      => $background_video_height_1,
 				'background_video_allow_pause' => $allow_player_pause_1,
+				'background_video_pause_outside_viewport' => $background_video_pause_outside_viewport_1,
 			),
 			array(
 				'background_video_mp4'         => $background_video_mp4_2,
@@ -2677,6 +2738,7 @@ class ET_Builder_Row extends ET_Builder_Structure_Element {
 				'background_video_width'       => $background_video_width_2,
 				'background_video_height'      => $background_video_height_2,
 				'background_video_allow_pause' => $allow_player_pause_2,
+				'background_video_pause_outside_viewport' => $background_video_pause_outside_viewport_2,
 			),
 			array(
 				'background_video_mp4'         => $background_video_mp4_3,
@@ -2684,6 +2746,7 @@ class ET_Builder_Row extends ET_Builder_Structure_Element {
 				'background_video_width'       => $background_video_width_3,
 				'background_video_height'      => $background_video_height_3,
 				'background_video_allow_pause' => $allow_player_pause_3,
+				'background_video_pause_outside_viewport' => $background_video_pause_outside_viewport_3,
 			),
 			array(
 				'background_video_mp4'         => $background_video_mp4_4,
@@ -2691,6 +2754,7 @@ class ET_Builder_Row extends ET_Builder_Structure_Element {
 				'background_video_width'       => $background_video_width_4,
 				'background_video_height'      => $background_video_height_4,
 				'background_video_allow_pause' => $allow_player_pause_4,
+				'background_video_pause_outside_viewport' => $background_video_pause_outside_viewport_4,
 			),
 		);
 
@@ -3102,18 +3166,21 @@ class ET_Builder_Row_Inner extends ET_Builder_Structure_Element {
 			'background_video_width_1',
 			'background_video_height_1',
 			'allow_player_pause_1',
+			'background_video_pause_outside_viewport_1',
 			'__video_background_1',
 			'background_video_mp4_2',
 			'background_video_webm_2',
 			'background_video_width_2',
 			'background_video_height_2',
 			'allow_player_pause_2',
+			'background_video_pause_outside_viewport_2',
 			'__video_background_2',
 			'background_video_mp4_3',
 			'background_video_webm_3',
 			'background_video_width_3',
 			'background_video_height_3',
 			'allow_player_pause_3',
+			'background_video_pause_outside_viewport_3',
 			'__video_background_3',
 		);
 
@@ -3588,6 +3655,12 @@ class ET_Builder_Row_Inner extends ET_Builder_Structure_Element {
 					'__video_background_1',
 				),
 			),
+			'background_video_pause_outside_viewport_1' => array(
+				'type' => 'skip',
+				'computed_affects'   => array(
+					'__video_background_1',
+				),
+			),
 			'__video_background_1' => array(
 				'type' => 'computed',
 				'computed_callback' => array( 'ET_Builder_Column', 'get_column_video_background' ),
@@ -3632,6 +3705,12 @@ class ET_Builder_Row_Inner extends ET_Builder_Structure_Element {
 					'__video_background_2',
 				),
 			),
+			'background_video_pause_outside_viewport_2' => array(
+				'type' => 'skip',
+				'computed_affects'   => array(
+					'__video_background_2',
+				),
+			),
 			'__video_background_2' => array(
 				'type' => 'computed',
 				'computed_callback' => array( 'ET_Builder_Column', 'get_column_video_background' ),
@@ -3671,6 +3750,12 @@ class ET_Builder_Row_Inner extends ET_Builder_Structure_Element {
 				),
 			),
 			'allow_player_pause_3' => array(
+				'type' => 'skip',
+				'computed_affects'   => array(
+					'__video_background_3',
+				),
+			),
+			'background_video_pause_outside_viewport_3' => array(
 				'type' => 'skip',
 				'computed_affects'   => array(
 					'__video_background_3',
@@ -3810,6 +3895,9 @@ class ET_Builder_Row_Inner extends ET_Builder_Structure_Element {
 		$allow_player_pause_1       = $this->shortcode_atts['allow_player_pause_1'];
 		$allow_player_pause_2       = $this->shortcode_atts['allow_player_pause_2'];
 		$allow_player_pause_3       = $this->shortcode_atts['allow_player_pause_3'];
+		$background_video_pause_outside_viewport_1 = $this->shortcode_atts['background_video_pause_outside_viewport_1'];
+		$background_video_pause_outside_viewport_2 = $this->shortcode_atts['background_video_pause_outside_viewport_2'];
+		$background_video_pause_outside_viewport_3 = $this->shortcode_atts['background_video_pause_outside_viewport_3'];
 
 		global $et_pb_all_column_settings_inner, $et_pb_rendering_column_content, $et_pb_rendering_column_content_row;
 
@@ -3908,6 +3996,7 @@ class ET_Builder_Row_Inner extends ET_Builder_Structure_Element {
 				'background_video_width'       => $background_video_width_1,
 				'background_video_height'      => $background_video_height_1,
 				'background_video_allow_pause' => $allow_player_pause_1,
+				'background_video_pause_outside_viewport' => $background_video_pause_outside_viewport_1,
 			),
 			array(
 				'background_video_mp4'         => $background_video_mp4_2,
@@ -3915,6 +4004,7 @@ class ET_Builder_Row_Inner extends ET_Builder_Structure_Element {
 				'background_video_width'       => $background_video_width_2,
 				'background_video_height'      => $background_video_height_2,
 				'background_video_allow_pause' => $allow_player_pause_2,
+				'background_video_pause_outside_viewport' => $background_video_pause_outside_viewport_2,
 			),
 			array(
 				'background_video_mp4'         => $background_video_mp4_3,
@@ -3922,6 +4012,7 @@ class ET_Builder_Row_Inner extends ET_Builder_Structure_Element {
 				'background_video_width'       => $background_video_width_3,
 				'background_video_height'      => $background_video_height_3,
 				'background_video_allow_pause' => $allow_player_pause_3,
+				'background_video_pause_outside_viewport' => $background_video_pause_outside_viewport_3,
 			),
 		);
 
@@ -4125,6 +4216,7 @@ class ET_Builder_Column extends ET_Builder_Structure_Element {
 			'background_video_width',
 			'background_video_height',
 			'allow_player_pause',
+			'background_video_pause_outside_viewport',
 			'__video_background',
 		);
 

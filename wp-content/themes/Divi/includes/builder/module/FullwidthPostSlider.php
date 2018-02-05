@@ -18,7 +18,6 @@ class ET_Builder_Module_Fullwidth_Post_Slider extends ET_Builder_Module_Type_Pos
 			'auto_ignore_hover',
 			'parallax',
 			'parallax_method',
-			'show_inner_shadow',
 			'background_position',
 			'background_size',
 			'admin_label',
@@ -57,7 +56,6 @@ class ET_Builder_Module_Fullwidth_Post_Slider extends ET_Builder_Module_Type_Pos
 			'auto_ignore_hover'       => array( 'off' ),
 			'parallax'                => array( 'off' ),
 			'parallax_method'         => array( 'off' ),
-			'show_inner_shadow'       => array( 'on' ),
 			'background_position'     => array( 'center' ),
 			'background_size'         => array( 'cover' ),
 			'show_content_on_mobile'  => array( 'on' ),
@@ -590,17 +588,6 @@ class ET_Builder_Module_Fullwidth_Post_Slider extends ET_Builder_Module_Type_Pos
 				'toggle_slug'       => 'overlay',
 				'description'       => esc_html__( 'Use the color picker to choose a color for the text overlay.', 'et_builder' ),
 			),
-			'show_inner_shadow'   => array(
-				'label'           => esc_html__( 'Show Inner Shadow', 'et_builder' ),
-				'type'            => 'yes_no_button',
-				'option_category' => 'configuration',
-				'options'         => array(
-					'on'  => esc_html__( 'Yes', 'et_builder' ),
-					'off' => esc_html__( 'No', 'et_builder' ),
-				),
-				'tab_slug'        => 'advanced',
-				'toggle_slug'     => 'layout',
-			),
 			'show_content_on_mobile' => array(
 				'label'           => esc_html__( 'Show Content On Mobile', 'et_builder' ),
 				'type'            => 'yes_no_button',
@@ -734,7 +721,6 @@ class ET_Builder_Module_Fullwidth_Post_Slider extends ET_Builder_Module_Type_Pos
 		$auto_speed              = $this->shortcode_atts['auto_speed'];
 		$auto_ignore_hover       = $this->shortcode_atts['auto_ignore_hover'];
 		$body_font_size 		 = $this->shortcode_atts['body_font_size'];
-		$show_inner_shadow       = $this->shortcode_atts['show_inner_shadow'];
 		$show_content_on_mobile  = $this->shortcode_atts['show_content_on_mobile'];
 		$show_cta_on_mobile      = $this->shortcode_atts['show_cta_on_mobile'];
 		$show_image_video_mobile = $this->shortcode_atts['show_image_video_mobile'];
@@ -895,7 +881,6 @@ class ET_Builder_Module_Fullwidth_Post_Slider extends ET_Builder_Module_Type_Pos
 		$class .= 'on' === $parallax ? ' et_pb_slider_parallax' : '';
 		$class .= 'on' === $auto ? ' et_slider_auto et_slider_speed_' . esc_attr( $auto_speed ) : '';
 		$class .= 'on' === $auto_ignore_hover ? ' et_slider_auto_ignore_hover' : '';
-		$class .= 'on' !== $show_inner_shadow ? ' et_pb_slider_no_shadow' : '';
 		$class .= 'on' === $show_image_video_mobile ? ' et_pb_slider_show_image' : '';
 		$class .= ' et_pb_post_slider_image_' . $image_placement;
 		$class .= 'on' === $use_bg_overlay ? ' et_pb_slider_with_overlay' : '';
@@ -1009,16 +994,18 @@ class ET_Builder_Module_Fullwidth_Post_Slider extends ET_Builder_Module_Type_Pos
 				<div class="et_pb_slides">
 					%2$s
 				</div> <!-- .et_pb_slides -->
+				%9$s
 			</div> <!-- .et_pb_slider -->
 			',
-			$class,
+			esc_attr( $class ),
 			$content,
 			( '' !== $module_id ? sprintf( ' id="%1$s"', esc_attr( $module_id ) ) : '' ),
 			( '' !== $module_class ? sprintf( ' %1$s', esc_attr( $module_class ) ) : '' ),
 			'' !== $video_background ? ' et_pb_section_video et_pb_preload' : '',
 			$video_background,
 			'' !== $parallax_image_background ? ' et_pb_section_parallax' : '',
-			$parallax_image_background
+			$parallax_image_background,
+			$this->inner_shadow_back_compatibility( $function_name )
 		);
 
 		// Restore $wp_filter
@@ -1040,6 +1027,45 @@ class ET_Builder_Module_Fullwidth_Post_Slider extends ET_Builder_Module_Type_Pos
 		}
 
 		self::set_style( $function_name, $boxShadow->get_style( $selector, $this->shortcode_atts ) );
+	}
+
+	private function inner_shadow_back_compatibility( $functions_name ) {
+		$utils = ET_Core_Data_Utils::instance();
+		$atts  = $this->shortcode_atts;
+		$style = '';
+
+		if (
+			version_compare( $utils->array_get( $atts, '_builder_version', '3.0.93' ), '3.0.99', 'lt' )
+		) {
+			$class = self::get_module_order_class( $functions_name );
+			$style = sprintf(
+				'<style>%1$s</style>',
+				sprintf(
+					'.%1$s.et_pb_slider .et_pb_slide {'
+					. '-webkit-box-shadow: none; '
+					. '-moz-box-shadow: none; '
+					. 'box-shadow: none; '
+					.'}',
+					esc_attr( $class )
+				)
+			);
+
+			if ( 'off' !== $utils->array_get( $atts, 'show_inner_shadow' ) ) {
+				$style .= sprintf(
+					'<style>%1$s</style>',
+					sprintf(
+						'.%1$s > .box-shadow-overlay { '
+						. '-webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1); '
+						. '-moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1); '
+						. 'box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1); '
+						. '}',
+						esc_attr( $class )
+					)
+				);
+			}
+		}
+
+		return $style;
 	}
 }
 

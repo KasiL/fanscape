@@ -58,7 +58,7 @@ function et_builder_ab_labels() {
 		),
 		'select_winner_first' => array(
 			'title' => esc_html__( 'Select Split Testing Winner', 'et_builder' ),
-			'desc'  => esc_html__( 'Before ending your split test, you must choose which split testing variation to keep. Please select your favorite or highest converting subject. Alternative split testing subjects will be removed.', 'et_builder' ),
+			'desc'  => esc_html__( 'Before ending your split test, you must choose which split testing variation to keep. Please select your favorite or highest converting subject. Alternative split testing subjects will be removed and stats will be cleared.', 'et_builder' ),
 		),
 		'select_subject_first' => array(
 			'title' => esc_html__( 'Select Split Testing Subject', 'et_builder' ),

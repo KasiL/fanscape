@@ -709,3 +709,11 @@
 	Bug Fix: Fixed issue where scheduled events could repeat on sites that do not properly support WordPress's cron system.
 	Bug Fix: Reactivating Away Mode now replaces the active file if you had previously removed it.
 	Bug Fix: Ensure lockouts take effect immediately, even on systems where changes to server configuration files do not take effect immediately.
+6.8.1 - 2017-01-29 - Chris Jean & Timothy Jacobs
+	Enhancement: Display user lockouts in Lockout Sidebar.
+	Bug Fix: Load translations on the plugins_loaded hook.
+	Bug Fix: Fixed method that could be used to discover hidden login slug on some sites.
+	Bug Fix: Fixed issue that could prevent Sync from loading Malware Scan results if a scan previously failed.
+	Bug Fix: Update to the REST API "Restricted Access" feature to protect against methods to work around the restricted access.
+	Bug Fix: Prevent login page being hidden when following the "Confirm Email Address" notification URL.
+	Bug Fix: Hide Backend notifications not being properly sent when first enabled.

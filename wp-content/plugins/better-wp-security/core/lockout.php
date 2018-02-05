@@ -150,7 +150,7 @@ final class ITSEC_Lockout {
 	 * @return void
 	 */
 	public function check_lockout( $user = false, $username = false, $type = '' ) {
-		global $wpdb, $itsec_globals;
+		global $wpdb;
 
 		$wpdb->hide_errors(); //Hide database errors in case the tables aren't there
 
@@ -564,7 +564,7 @@ final class ITSEC_Lockout {
 	 *
 	 * @since 4.0
 	 *
-	 * @param string $type    'all', 'host', or 'user'
+	 * @param string $type    'all', 'host', 'user' or 'username'.
 	 * @param array  $args    Additional arguments.
 	 *
 	 * @return array all lockouts in the system
@@ -1106,7 +1106,7 @@ final class ITSEC_Lockout {
 
 			$lockout = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM `{$wpdb->base_prefix}itsec_lockouts` WHERE lockout_id = %d;", $id ), ARRAY_A );
 
-			if ( is_array( $lockout ) && sizeof( $lockout ) >= 1 ) {
+			if ( is_array( $lockout ) && count( $lockout ) >= 1 ) {
 
 				$success = $wpdb->update(
 					$wpdb->base_prefix . 'itsec_lockouts',
@@ -1120,56 +1120,10 @@ final class ITSEC_Lockout {
 
 				return $success === false ? false : true;
 
-			} else {
-
-				return false;
-
 			}
-
-		} elseif ( isset( $_POST['itsec_release_lockout'] ) && $_POST['itsec_release_lockout'] == 'true' ) {
-
-			if ( ! wp_verify_nonce( $_POST['wp_nonce'], 'itsec_release_lockout' ) ) {
-				die( __( 'Security error!', 'better-wp-security' ) );
-			}
-
-			$type    = 'updated';
-			$message = __( 'The selected lockouts have been cleared.', 'better-wp-security' );
-
-			foreach ( $_POST as $key => $value ) {
-
-				if ( strstr( $key, "lo_" ) ) { //see if it's a lockout to avoid processing extra post fields
-
-					$wpdb->update(
-						$wpdb->base_prefix . 'itsec_lockouts',
-						array(
-							'lockout_active' => 0,
-						),
-						array(
-							'lockout_id' => (int) $value,
-						)
-					);
-
-				}
-
-			}
-
-			ITSEC_Lib::clear_caches();
-
-			if ( is_multisite() ) {
-
-				$error_handler = new WP_Error();
-
-				$error_handler->add( $type, $message );
-
-				ITSEC_Lib::show_error_message( $error_handler );
-			} else {
-
-				add_settings_error( 'itsec', esc_attr( 'settings_updated' ), $message, $type );
-
-			}
-
 		}
 
+		return false;
 	}
 
 	/**
@@ -1293,8 +1247,6 @@ final class ITSEC_Lockout {
 	 * @return string
 	 */
 	public function set_lockout_error() {
-
-		global $itsec_globals;
 
 		//check to see if it's the logout screen
 		if ( isset( $_GET['itsec'] ) && $_GET['itsec'] == true ) {

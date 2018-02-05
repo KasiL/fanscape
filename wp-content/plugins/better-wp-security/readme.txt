@@ -2,8 +2,8 @@
 Contributors: ithemes, chrisjean, gerroald, mattdanner, timothyblynjacobs
 Tags: security, security plugin, malware, hack, secure, block, SSL, admin, htaccess, lockdown, login, protect, protection, anti virus, attack, injection, login security, maintenance, permissions, prevention, authentication, administration, password, brute force, ban, permissions, bots, user agents, xml rpc, security log
 Requires at least: 4.7
-Tested up to: 4.9.1
-Stable tag: 6.8.0
+Tested up to: 4.9.2
+Stable tag: 6.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -187,6 +187,15 @@ Free support may be available with the help of the community in the <a href="htt
 5. Free malware scan powered by Sucuri SiteCheck.
 
 == Changelog ==
+
+= 6.8.1 =
+* Enhancement: Display user lockouts in Lockout Sidebar.
+* Bug Fix: Load translations on the plugins_loaded hook.
+* Bug Fix: Fixed method that could be used to discover hidden login slug on some sites.
+* Bug Fix: Fixed issue that could prevent Sync from loading Malware Scan results if a scan previously failed.
+* Bug Fix: Update to the REST API "Restricted Access" feature to protect against methods to work around the restricted access.
+* Bug Fix: Prevent login page being hidden when following the "Confirm Email Address" notification URL.
+* Bug Fix: Hide Backend notifications not being properly sent when first enabled.
 
 = 6.8.0 =
 * New Feature: Introduces a scheduling framework for handling events. Cron is now used by default, and will switch to using an alternate scheduling system if it detects an error. To disable this detection set ITSEC_DISABLE_CRON_TEST in your wp-config.php file.
@@ -391,5 +400,5 @@ Free support may be available with the help of the community in the <a href="htt
 
 == Upgrade Notice ==
 
-= 6.8.0 =
-Version 6.8.0 contains important bug fixes and improvements. It is recommended for all users.
+= 6.8.1 =
+Version 6.8.1 contains important bug fixes and improvements. It is recommended for all users.

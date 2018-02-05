@@ -45,6 +45,18 @@ abstract class ITSEC_Scheduler {
 	abstract public function schedule_once( $at, $id, $data = array() );
 
 	/**
+	 * Schedule a single event to run soon.
+	 *
+	 * @param string $id
+	 * @param array  $data
+	 *
+	 * @return bool
+	 */
+	public function schedule_soon( $id, $data = array() ) {
+		return $this->schedule_once( ITSEC_Core::get_current_time_gmt() + 60 * mt_rand( 1, 10 ), $id, $data );
+	}
+
+	/**
 	 * Is a recurring event scheduled.
 	 *
 	 * @param string $id

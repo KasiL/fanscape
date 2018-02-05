@@ -78,8 +78,8 @@ class ET_Builder_Module_Blog extends ET_Builder_Module_Type_PostBased {
 			'border' => array(
 				'css' => array(
 					'main' => array(
-						'border_radii'  => "%%order_class%%.et_pb_blog_grid .et_pb_post",
-						'border_styles' => "%%order_class%%.et_pb_blog_grid .et_pb_post",
+						'border_radii'  => "%%order_class%% .et_pb_blog_grid .et_pb_post",
+						'border_styles' => "%%order_class%% .et_pb_blog_grid .et_pb_post",
 					),
 				),
 				'depends_to'      => array( 'fullwidth' ),
@@ -944,7 +944,7 @@ class ET_Builder_Module_Blog extends ET_Builder_Module_Type_PostBased {
 
 		if ( '' !== $masonry_tile_background_color ) {
 			ET_Builder_Element::set_style( $function_name, array(
-				'selector'    => '%%order_class%%.et_pb_blog_grid .et_pb_post',
+				'selector'    => '%%order_class%% .et_pb_blog_grid .et_pb_post',
 				'declaration' => sprintf(
 					'background-color: %1$s;',
 					esc_html( $masonry_tile_background_color )
@@ -1233,32 +1233,54 @@ class ET_Builder_Module_Blog extends ET_Builder_Module_Type_PostBased {
 
 		ob_end_clean();
 
-		$class = " et_pb_module et_pb_bg_layout_{$background_layout}";
+		$class = " et_pb_bg_layout_{$background_layout}";
 
-		$output = sprintf(
-			'<div%5$s class="%1$s%3$s%6$s%7$s%9$s%11$s">
+		if ( 'on' !== $fullwidth ) {
+			$output = sprintf(
+				'<div%5$s class="et_pb_module et_pb_blog_grid_wrapper%6$s">
+					<div class="%1$s%3$s%7$s%9$s%11$s">
+					%10$s
+					%8$s
+					<div class="et_pb_ajax_pagination_container">
+						%2$s
+					</div>
+					%4$s %12$s
+				</div>',
+				( 'on' === $fullwidth ? 'et_pb_posts' : 'et_pb_blog_grid clearfix' ),
+				$posts,
+				esc_attr( $class ),
+				( ! $container_is_closed ? '</div> <!-- .et_pb_posts -->' : '' ),
+				( '' !== $module_id ? sprintf( ' id="%1$s"', esc_attr( $module_id ) ) : '' ),
+				( '' !== $module_class ? sprintf( ' %1$s', esc_attr( $module_class ) ) : '' ),
+				'' !== $video_background ? ' et_pb_section_video et_pb_preload' : '',
+				$video_background,
+				'' !== $parallax_image_background ? ' et_pb_section_parallax' : '',
+				$parallax_image_background,
+				$this->get_text_orientation_classname(),
+				$this->drop_shadow_back_compatibility( $function_name )
+			);
+		} else {
+			$output = sprintf(
+				'<div%5$s class="et_pb_module %1$s%3$s%6$s%7$s%9$s%11$s">
 				%10$s
 				%8$s
 				<div class="et_pb_ajax_pagination_container">
 					%2$s
 				</div>
-			%4$s %12$s',
-			( 'on' === $fullwidth ? 'et_pb_posts' : 'et_pb_blog_grid clearfix' ),
-			$posts,
-			esc_attr( $class ),
-			( ! $container_is_closed ? '</div> <!-- .et_pb_posts -->' : '' ),
-			( '' !== $module_id ? sprintf( ' id="%1$s"', esc_attr( $module_id ) ) : '' ),
-			( '' !== $module_class ? sprintf( ' %1$s', esc_attr( $module_class ) ) : '' ),
-			'' !== $video_background ? ' et_pb_section_video et_pb_preload' : '',
-			$video_background,
-			'' !== $parallax_image_background ? ' et_pb_section_parallax' : '',
-			$parallax_image_background,
-			$this->get_text_orientation_classname(),
-			$this->drop_shadow_back_compatibility( $function_name )
-		);
-
-		if ( 'on' !== $fullwidth ) {
-			$output = sprintf( '<div class="et_pb_blog_grid_wrapper">%1$s</div>', $output );
+				%4$s %12$s',
+				( 'on' === $fullwidth ? 'et_pb_posts' : 'et_pb_blog_grid clearfix' ),
+				$posts,
+				esc_attr( $class ),
+				( ! $container_is_closed ? '</div> <!-- .et_pb_posts -->' : '' ),
+				( '' !== $module_id ? sprintf( ' id="%1$s"', esc_attr( $module_id ) ) : '' ),
+				( '' !== $module_class ? sprintf( ' %1$s', esc_attr( $module_class ) ) : '' ),
+				'' !== $video_background ? ' et_pb_section_video et_pb_preload' : '',
+				$video_background,
+				'' !== $parallax_image_background ? ' et_pb_section_parallax' : '',
+				$parallax_image_background,
+				$this->get_text_orientation_classname(),
+				$this->drop_shadow_back_compatibility( $function_name )
+			);
 		}
 
 		// Restore $wp_filter

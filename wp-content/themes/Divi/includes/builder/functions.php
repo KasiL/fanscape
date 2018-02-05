@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ET_BUILDER_PRODUCT_VERSION' ) ) {
 	// Note, this will be updated automatically during grunt release task.
-	define( 'ET_BUILDER_PRODUCT_VERSION', '3.0.98' );
+	define( 'ET_BUILDER_PRODUCT_VERSION', '3.0.100' );
 }
 
 if ( ! defined( 'ET_BUILDER_VERSION' ) ) {
@@ -116,8 +116,18 @@ function et_pb_add_layout_filters() {
 			}
 		}
 
+		$layout_packs    = get_terms( 'layout_pack' );
+		$filter_pack     = array();
+		$filter_pack[''] = esc_html_x( 'All Packs', 'Layout Packs', 'et_builder' );
+
+		if ( is_array( $layout_packs ) ) {
+			foreach ( $layout_packs as $pack ) {
+				$filter_pack[ $pack->slug ] = $pack->name;
+			}
+		}
+
 		$filter_layout_type = array(
-			''        => esc_html__( 'All Layouts', 'et_builder' ),
+			''        => esc_html__( 'All Types', 'et_builder' ),
 			'module'  => esc_html__( 'Modules', 'et_builder' ),
 			'row'     => esc_html__( 'Rows', 'et_builder' ),
 			'section' => esc_html__( 'Sections', 'et_builder' ),
@@ -125,9 +135,9 @@ function et_pb_add_layout_filters() {
 		);
 
 		$filter_scope = array(
-			''           => esc_html__( 'Global/not Global', 'et_builder' ),
+			''           => esc_html__( 'All Scopes', 'et_builder' ),
 			'global'     => esc_html__( 'Global', 'et_builder' ),
-			'not_global' => esc_html__( 'not Global', 'et_builder' )
+			'not_global' => esc_html__( 'Not Global', 'et_builder' )
 		);
 		?>
 
@@ -166,6 +176,18 @@ function et_pb_add_layout_filters() {
 				);
 			} ?>
 		</select>
+
+		<select name="layout_pack">
+			<?php
+			$selected = isset( $_GET['layout_pack'] ) ? $_GET['layout_pack'] : '';
+			foreach ( $filter_pack as $value => $label ) {
+				printf( '<option value="%1$s"%2$s>%3$s</option>',
+					esc_attr( $value ),
+					selected( $value, $selected ),
+					esc_html( $label )
+				);
+			} ?>
+		</select>
 	<?php
 	}
 }
@@ -189,12 +211,11 @@ function et_pb_load_export_section(){
 endif;
 add_action( 'load-edit.php', 'et_pb_load_export_section' );
 
-// enqueue script to alter the options on library categories page
 if ( ! function_exists( 'et_pb_edit_library_categories' ) ) :
 function et_pb_edit_library_categories(){
 	$current_screen = get_current_screen();
 
-	if ( 'edit-layout_category' === $current_screen->id ) {
+	if ( 'edit-layout_category' === $current_screen->id || 'edit-layout_pack' === $current_screen->id ) {
 		// display wp error screen if library is disabled for current user
 		if ( ! et_pb_is_allowed( 'divi_library' ) || ! et_pb_is_allowed( 'add_library' ) || ! et_pb_is_allowed( 'save_library' ) ) {
 			wp_die( esc_html__( "you don't have sufficient permissions to access this page", 'et_builder' ) );
@@ -316,6 +337,39 @@ function exclude_premade_layouts_library_count( $views ) {
 }
 endif;
 add_filter( 'views_edit-et_pb_layout', 'exclude_premade_layouts_library_count' );
+
+
+if ( ! function_exists( 'et_pb_get_standard_post_types' ) ):
+/**
+ * Returns the standard '_et_pb_built_for_post_type' post types.
+ *
+ * @deprecated {@see ET_Builder_Post_Type_Layout::get_built_for_post_types()}
+ *
+ * @since ??  Deprecated.
+ * @since 1.8
+ *
+ * @return string[]
+ */
+function et_pb_get_standard_post_types() {
+	return ET_Builder_Library::built_for_post_types();
+}
+endif;
+
+if ( ! function_exists( 'et_pb_get_used_built_for_post_types' ) ):
+/**
+ * Returns all current '_et_pb_built_for_post_type' post types.
+ *
+ * @deprecated {@see ET_Builder_Post_Type_Layout::get_built_for_post_types()}
+ *
+ * @since ??  Deprecated.
+ * @since 1.8
+ *
+ * @return string[]
+ */
+function et_pb_get_used_built_for_post_types() {
+	return ET_Builder_Library::built_for_post_types( 'all' );
+}
+endif;
 
 if ( ! function_exists( 'et_pb_get_font_icon_symbols' ) ) :
 function et_pb_get_font_icon_symbols() {
@@ -1164,6 +1218,10 @@ function et_fb_ajax_save() {
 
 	if ( isset( $_POST['layout_type'] ) ) {
 		$layout_type = sanitize_text_field( $_POST['layout_type'] );
+	}
+
+	if ( ! $built_for_type = get_post_meta( $post_id, '_et_pb_built_for_post_type', true ) ) {
+		update_post_meta( $post_id, '_et_pb_built_for_post_type', 'page' );
 	}
 
 	$post_content = et_fb_process_to_shortcode( $shortcode_data, $_POST['options'], $layout_type );
@@ -2157,6 +2215,7 @@ if ( ! function_exists( 'et_pb_export_layouts_interface' ) ) :
 function et_pb_export_layouts_interface() {
 	if ( ! current_user_can( 'export' ) )
 		wp_die( __( 'You do not have sufficient permissions to export the content of this site.', 'et_builder' ) );
+
 	?>
 	<a href="<?php echo admin_url( 'edit-tags.php?taxonomy=layout_category' ); ?>" id="et_load_category_page"><?php _e( 'Manage Categories', 'et_builder' ); ?></a>
 	<?php
@@ -2630,7 +2689,7 @@ if ( ! function_exists( 'et_pb_generate_new_layout_modal' ) ) {
 			$template_type_option_output = sprintf(
 				'<br><label>%1$s:</label>
 				<select id="new_template_type">',
-				esc_html__( 'Template Type', 'et_builder' )
+				esc_html__( 'Layout Type', 'et_builder' )
 			);
 
 			foreach( $template_type_options as $option_id => $option_name ) {
@@ -2652,7 +2711,7 @@ if ( ! function_exists( 'et_pb_generate_new_layout_modal' ) ) {
 		// construct output for the layout category option
 		$layout_cat_option_output .= sprintf(
 			'<br><label>%1$s</label>',
-			esc_html__( 'Select category(ies) for new template or type a new name ( optional )', 'et_builder' )
+			esc_html__( 'Add To Categories', 'et_builder' )
 		);
 
 		$layout_categories = apply_filters( 'et_pb_new_layout_cats_array', get_terms( 'layout_category', array( 'hide_empty' => false ) ) );
@@ -2694,8 +2753,8 @@ if ( ! function_exists( 'et_pb_generate_new_layout_modal' ) ) {
 					</div>
 				</div>
 			</div>',
-			esc_html__( 'New Template Settings', 'et_builder' ),
-			esc_html__( 'Template Name', 'et_builder' ),
+			esc_html__( 'Add New Layout', 'et_builder' ),
+			esc_html__( 'Layout Name', 'et_builder' ),
 			$template_type_option_output,
 			$template_global_option_output,
 			$layout_cat_option_output, //#5
@@ -2804,6 +2863,14 @@ function et_pb_add_builder_page_js_css(){
 	$selective_sync_status = '';
 	$global_module_type = '';
 	$excluded_global_options = array();
+
+	$utils           = ET_Core_Data_Utils::instance();
+	$updates_options = get_site_option( 'et_automatic_updates_options', array() );
+	$et_account      = array(
+		'et_username' => $utils->array_get( $updates_options, 'username', '' ),
+		'et_api_key'  => $utils->array_get( $updates_options, 'api_key', '' ),
+		'status'      => get_site_option( 'et_account_status', 'not_active' ),
+	);
 
 	// we need some post data when editing saved templates.
 	if ( 'et_pb_layout' === $typenow ) {
@@ -2915,10 +2982,14 @@ function et_pb_add_builder_page_js_css(){
 
 	wp_enqueue_script( 'lz_string', ET_BUILDER_URI .'/scripts/lz-string.min.js', array(), ET_BUILDER_VERSION, true );
 
-	wp_enqueue_script( 'et_pb_admin_js', ET_BUILDER_URI .'/scripts/builder.js', array( 'jquery', 'jquery-ui-core', 'underscore', 'backbone', 'chart', 'jquery-tablesorter', 'et_pb_admin_global_js', 'et_pb_media_library', 'lz_string' ), ET_BUILDER_VERSION, true );
+	wp_enqueue_script( 'es6-promise', '//cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js', array(), null, true );
+	wp_enqueue_script( 'postmate', '//cdn.jsdelivr.net/npm/postmate@1.1.9/build/postmate.min.js', array( 'es6-promise' ), null, true );
+
+	wp_enqueue_script( 'et_pb_admin_js', ET_BUILDER_URI .'/scripts/builder.js', array( 'jquery', 'jquery-ui-core', 'underscore', 'backbone', 'chart', 'jquery-tablesorter', 'et_pb_admin_global_js', 'et_pb_media_library', 'lz_string', 'es6-promise' ), ET_BUILDER_VERSION, true );
 
 	wp_localize_script( 'et_pb_admin_js', 'et_pb_options', apply_filters( 'et_pb_options_builder', array_merge( array(
-		'debug'                                    => false,
+		'debug'                                    => defined( 'ET_DEBUG' ) && ET_DEBUG,
+		'et_account'                               => $et_account,
 		'ajaxurl'                                  => admin_url( 'admin-ajax.php' ),
 		'home_url'                                 => home_url(),
 		'cookie_path'                              => SITECOOKIEPATH,
@@ -2999,6 +3070,10 @@ function et_pb_add_builder_page_js_css(){
 		'supported_font_weights'                   => et_builder_get_font_weight_list(),
 		'supported_font_formats'                   => et_pb_get_supported_font_formats(),
 		'all_svg_icons'                            => et_pb_get_svg_icons_list(),
+		'library_get_layouts_data_nonce'           => wp_create_nonce( 'et_builder_library_get_layouts_data' ),
+		'library_get_layout_nonce'                 => wp_create_nonce( 'et_builder_library_get_layout' ),
+		'library_local_layouts'                    => ET_Builder_Library::instance()->builder_library_layouts_data(),
+		'library_update_account_nonce'             => wp_create_nonce( 'et_builder_library_update_account' ),
 	), et_pb_history_localization() ) ) );
 
 	$ab_settings = et_builder_ab_labels();
@@ -3792,7 +3867,7 @@ function et_pb_pagebuilder_meta_box() {
 			<span>%2$s</span>
 		</a>',
 		esc_attr__( 'Load From Library', 'et_builder' ),
-		esc_html__( 'Load From Library', 'et_builder' )
+		esc_html__( 'Load Layout', 'et_builder' )
 	);
 
 	$clear_layout_button = sprintf(
@@ -4388,9 +4463,65 @@ function et_pb_pagebuilder_meta_box() {
 		<%% } %%>
 		</script>',
 		esc_html__( 'Load Layout', 'et_builder' ),
-		esc_html__( 'Predefined Layouts', 'et_builder' ),
-		esc_html__( 'Add From Library', 'et_builder' )
+		esc_html__( 'Premade Layouts', 'et_builder' ),
+		esc_html__( 'Your Saved Layouts', 'et_builder' )
 	);
+
+	// Library Account Status Error
+	$library_i18n = require ET_BUILDER_DIR . 'frontend-builder/i18n/library.php';
+
+	printf( '
+		<script type="text/template" id="et-builder-library-account-status-error-template">
+			<div class="et-pb-library-account-status-error">
+				<%% if ( expired ) { %%>
+					<h2>%1$s</h2>
+					<p>%2$s</p>
+				<%% } else { %%>
+					<h2>%3$s</h2>
+					<p>%4$s</p>
+					<div class="et-pb-option et-pb-option--text">
+						<label for="et_username">%5$s</label>
+						<div class="et-pb-option-container et-pb-option-container--text">
+							<input id="et_username" type="text" class="regular-text" value="" />
+							<p class="description">%6$s</p>
+						</div>
+					</div>
+					<div class="et-pb-option et-pb-option--text">
+						<label for="et_api_key">%7$s</label>
+						<div class="et-pb-option-container et-pb-option-container--text">
+							<input id="et_api_key" type="text" class="regular-text" value="" />
+							<p class="description">%8$s</p>
+						</div>
+					</div>
+					<div class="et-pb-option-container">
+						<a href="#" class="button">%9$s</a>
+					</div>
+				<%% } %%>
+			</div>
+		</script>',
+		et_esc_previously( $library_i18n['Uh Oh!'] ),
+		et_esc_previously( $library_i18n['$expiredAccount'] ),
+		et_esc_previously( $library_i18n['Authentication Required'] ),
+		et_esc_previously( $library_i18n['$noAccount'] ),
+		et_esc_previously( $library_i18n['Username'] ),
+		et_esc_previously( $library_i18n['$usernameHelp'] ),
+		et_esc_previously( $library_i18n['API Key'] ),
+		et_esc_previously( $library_i18n['$apiKeyHelp'] ),
+		et_esc_previously( $library_i18n['Submit'] )
+	);
+
+	// Library Back Button
+	echo '
+		<script type="text/template" id="et-builder-library-back-button-template">
+			<div class="et-pb-library-back-button" aria-role="button" aria-label="Back To Layouts List">
+				<svg viewBox="0 0 28 28" preserveAspectRatio="xMidYMid meet"shapeRendering="geometricPrecision">
+					<g>
+						<path d="M14.988 10.963h-3v-2.52a.393.393 0 0 0-.63-.361l-5.2 4.5a.491.491 0 0 0 0 .72l5.2 4.5a.393.393 0 0 0 .63-.36v-2.52h2.99a2.992 2.992 0 0 1 2.99 2.972v1.287a.7.7 0 0 0 .7.694h2.59a.7.7 0 0 0 .7-.694v-1.3a6.948 6.948 0 0 0-6.97-6.918z" fillRule="evenodd" />
+					</g>
+				</svg>
+			</div>
+		</script>
+	';
 
 	$insert_module_button = sprintf(
 		'%2$s
@@ -4833,7 +4964,7 @@ function et_pb_pagebuilder_meta_box() {
 	);
 
 	/**
-	 * Splir Testing :: Set global item winner status
+	 * Split Testing :: Set global item winner status
 	 */
 	printf(
 		'<script type="text/template" id="et-builder-prompt-modal-set_global_subject_winner">
@@ -6891,7 +7022,7 @@ endif;
 
 /* Exclude library related taxonomies from Yoast SEO Sitemap */
 function et_wpseo_sitemap_exclude_taxonomy( $value, $taxonomy ) {
-	$excluded = array( 'scope', 'module_width', 'layout_type', 'layout_category', 'layout' );
+	$excluded = array( 'scope', 'module_width', 'layout_type', 'layout_category', 'layout', 'layout_pack' );
 
 	if ( in_array( $taxonomy, $excluded ) ) {
 		return true;
@@ -7290,9 +7421,13 @@ function et_fb_get_product_tour_text( $post_id ) {
 			'title' => esc_html__( 'Load A New Layout', 'et_builder' ),
 			'description' => esc_html__( 'Loading pre-made layouts is a great way to jump-start your new page. The Divi Builder comes with dozens of layouts to choose from, and you can find lots of great free layouts online too. You can save your favorite layouts to the Divi Library and load them on new pages or share them with the community. Click the highlighted button to open the layouts menu and select a pre-made layout.', 'et_builder' ),
 		),
+		'selectLayoutPack' => array(
+			'title'       => esc_html__( 'Choose A Layout Pack', 'et_builder' ),
+			'description' => esc_html__( 'Here you can see a list of pre-made layout packs that ship with the Divi Builder. You can also access layouts that you have saved to your Divi Library. Choose the “Divi Builder Demo” layout pack to see the layouts it includes.', 'et_builder' ),
+		),
 		'loadLayoutItem' => array(
-			'title' => esc_html__( 'Choose A Design To Start With', 'et_builder' ),
-			'description' => esc_html__( 'Here you can see a list of pre-made layouts that ship with the Divi Builder. You can also access layouts that you have saved to your Divi Library. Choose the “Divi Builder Demo” layout to load the new layout to your page.', 'et_builder' ),
+			'title' => esc_html__( 'Choose A Layout To Start With', 'et_builder' ),
+			'description' => esc_html__( 'Now you can see more details about the layout pack as well as a list of the layouts it includes. Click “Use Layout” to apply the layout to your page.', 'et_builder' ),
 		),
 		'addSection' => array(
 			'title' => esc_html__( 'Add A New Section', 'et_builder' ),

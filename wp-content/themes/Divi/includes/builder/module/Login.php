@@ -412,12 +412,12 @@ class ET_Builder_Module_Login extends ET_Builder_Module {
 				<div class="et_pb_newsletter_form et_pb_login_form">
 					<form action="%7$s" method="post">
 						<p>
-							<label class="et_pb_contact_form_label" for="user_login" style="display: none;">%3$s</label>
-							<input id="user_login" placeholder="%4$s" class="input" type="text" value="" name="log" />
+							<label class="et_pb_contact_form_label" for="user_login_%12$s" style="display: none;">%3$s</label>
+							<input id="user_login_%12$s" placeholder="%4$s" class="input" type="text" value="" name="log" />
 						</p>
 						<p>
-							<label class="et_pb_contact_form_label" for="user_pass" style="display: none;">%5$s</label>
-							<input id="user_pass" placeholder="%6$s" class="input" type="password" value="" name="pwd" />
+							<label class="et_pb_contact_form_label" for="user_pass_%12$s" style="display: none;">%5$s</label>
+							<input id="user_pass_%12$s" placeholder="%6$s" class="input" type="password" value="" name="pwd" />
 						</p>
 						<p class="et_pb_forgot_password"><a href="%2$s">%1$s</a></p>
 						<p>
@@ -442,7 +442,9 @@ class ET_Builder_Module_Login extends ET_Builder_Module {
 					' data-icon="%1$s"',
 					esc_attr( et_pb_process_font_icon( $custom_icon ) )
 				) : '',
-				'' !== $custom_icon && 'on' === $button_custom ? ' et_pb_custom_button_icon' : ''
+				'' !== $custom_icon && 'on' === $button_custom ? ' et_pb_custom_button_icon' : '',
+				// Prevent an accidental "duplicate ID" error if there's more than one instance of this module
+				( '' !== $module_id ? esc_attr( $module_id ) : uniqid() )
 			);
 		}
 

@@ -1,3 +1,108 @@
+version 3.0.100 ( updated 02-1-2018 )
+- Fixed Core :: Data_Utils :: Possible usort() warning that occurred in some situations when loading the Visual Builder.
+- Updated saved layout wording in the Backend Builder to match the Visual Builder.
+- Fixed some inconsistent styling with the modal close icon in the Visual Builder.
+- FIxed a bug that caused layout pack thumbnails to be unclickable in Edge in some situations based on mouse movement during page load.
+- Fixed an error that occurred when loading layouts using Safari.
+- Fixed "Error Unexpected char" error that prevented the Load Layout modal from working for some customers.
+- Fixed an error that occurred when loading layouts in the Visual Builder on websites that force SSL over admin but use http on the website front end.
+	* includes/builder/feature/Library.php
+	* includes/builder/functions.php
+	* core/functions.php
+
+version 3.0.99 ( updated 01-31-2018 )
+- Added 150+ brand new pre-made layouts to the Divi Builder.
+- Improved the pre-made layouts experience, adding the ability to browse and import layouts directly onto the page.
+- Added the ability to assign screenshots to items saved to the Divi Library to make them easier to identify.
+- Fixed differences in Login and Email Optin modules appearance between frontend and Visual Builder.
+- Fixes the issue when default module bottom margin was not applied to the Blog Module using grid layout on frontend.
+- Fixed the issue when Gallery module disappeared while resizing a browser window.
+- Fixed issue on RTL where the Two Buttons Modal's buttons were covering each other.
+- Added "MapPress Easy Google Maps" plugin compatibility.
+- Removed Show Inner Shadow option from Slider, FullWidth Slider, Post Slider and FullWidth Post Slider modules.
+- Make the Color Picker rgb code visible.
+- Fixed the issue when settings of Global Modules were changed unexpectedly in some cases.
+- Fixed the issue when background videos stopped on mouse click.
+- Fixed Visual Builder Full Width Header Image render.
+- Added a notice that data will be cleared when split test is ended and saved and it can't be undone.
+- Fixed Visual Builder modal toggles RTL view when Disable Translations is enabled.
+- Added Play Video Outside Visible Window option to keep background video played when it leaves visible area of the window.
+- Fixed the issue when internal links in Visual Builder has been opened within the same browser tab in case of plain URLs usage.
+- Fixed preloader not appearing when pressing "Save & Exit" in the Edit Page / Exit Visual Builder modal.
+- Removed incorrect justify option on Fullwidth Header's Text & Logo Orientation field.
+- Fixed broken waypoint for element that appears at the bottom of the page.
+- Fixed javascript error that appears when dragging video slider module item before previous drag loading complete.
+- Fixed unwanted padding when Hide Navigation Until Scroll option on customizer is used in some cases.
+- Fixed an issue affecting the rendering of Comments module form fields within Visual Builder.
+- Fixed the issue with submenus overlap on touch devices.
+- Fixed non-unique form field IDs in Login Module.
+- Fixed Text Align button alignment when RTL is enabled.
+- Fixed a bug which would prevent closing the settings modal after adding a Gallery module to a blank page.
+- Fixed Rounded Corner reset button displaying on default values within Backend Builder.
+- Updated the default color on Instagram icons in social media follow modules.
+- Fixed disappearing logo on small screen when centered inline logo header layout is used.
+- Fixed an issue when hidden nav doesn't appear as the page is scrolled due to empty first section.
+	* core/admin/css/core.css
+	* core/admin/js/portability.js
+	* core/components/Portability.php
+	* core/components/README.md
+	* core/components/Updates.php
+	* core/components/data/Utils.php
+	* core/components/init.php
+	* core/components/post/Object.php
+	* core/components/post/Query.php
+	* core/components/post/Taxonomy.php
+	* core/components/post/Type.php
+	* epanel/custom_functions.php
+	* functions.php
+	* includes/builder/ab-testing.php
+	* includes/builder/class-et-builder-element.php
+	* includes/builder/core.php
+	* includes/builder/feature/Library.php
+	* includes/builder/framework.php
+	* includes/builder/frontend-builder/bundle.js
+	* includes/builder/frontend-builder/helpers.php
+	* includes/builder/frontend-builder/i18n/library.php
+	* includes/builder/frontend-builder/i18n/library/categories.php
+	* includes/builder/frontend-builder/i18n/library/layouts-long.php
+	* includes/builder/frontend-builder/i18n/library/layouts-short.php
+	* includes/builder/frontend-builder/i18n/library/packs.php
+	* includes/builder/functions.php
+	* includes/builder/images/library-global.svg
+	* includes/builder/images/library-layout.svg
+	* includes/builder/layouts.php
+	* includes/builder/main-structure-elements.php
+	* includes/builder/module/BarCounters.php
+	* includes/builder/module/BarCountersItem.php
+	* includes/builder/module/Blog.php
+	* includes/builder/module/FullwidthHeader.php
+	* includes/builder/module/FullwidthPostSlider.php
+	* includes/builder/module/FullwidthSlider.php
+	* includes/builder/module/Login.php
+	* includes/builder/module/PostSlider.php
+	* includes/builder/module/Slider.php
+	* includes/builder/module/SliderItem.php
+	* includes/builder/module/SocialMediaFollowItem.php
+	* includes/builder/module/settings/Migration.php
+	* includes/builder/module/settings/migration/InnerShadowToBoxShadow.php
+	* includes/builder/plugin-compat/mappress-google-maps-for-wordpress.php
+	* includes/builder/post/query/Layouts.php
+	* includes/builder/post/taxonomy/LayoutCategory.php
+	* includes/builder/post/taxonomy/LayoutPack.php
+	* includes/builder/post/taxonomy/LayoutScope.php
+	* includes/builder/post/taxonomy/LayoutType.php
+	* includes/builder/post/taxonomy/LayoutWidth.php
+	* includes/builder/post/type/Layout.php
+	* includes/builder/scripts/advanced_options.js
+	* includes/builder/scripts/builder.js
+	* includes/builder/scripts/frontend-builder-global-functions.js
+	* includes/builder/scripts/frontend-builder-scripts.js
+	* includes/builder/styles/frontend-builder-style.css
+	* includes/builder/styles/library_pages.css
+	* includes/builder/styles/notification_popup_styles.css
+	* includes/builder/styles/style.css
+	* js/custom.js
+
 version 3.0.98 ( updated 01-22-2018 )
 - Fixed the issue when Text-align justify was not applied.
 - Fixes a bug that would cause discarded changes to be shown again in the settings modal under some circumstances.

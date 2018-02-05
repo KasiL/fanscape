@@ -107,6 +107,7 @@ add_filter( 'heartbeat_settings', 'et_fb_heartbeat_settings', 11 );
 function et_fb_backend_helpers() {
 	global $post, $paged, $wp_query;
 
+	$utils       = ET_Core_Data_Utils::instance();
 	$layout_type = '';
 	$layout_scope = '';
 
@@ -130,6 +131,13 @@ function et_fb_backend_helpers() {
 		et_fb_disable_product_tour();
 	}
 
+	$updates_options = get_site_option( 'et_automatic_updates_options', array() );
+	$et_account      = array(
+		'et_username' => $utils->array_get( $updates_options, 'username', '' ),
+		'et_api_key'  => $utils->array_get( $updates_options, 'api_key', '' ),
+		'status'      => get_site_option( 'et_account_status', 'not_active' ),
+	);
+
 	$fb_modules_array = apply_filters( 'et_fb_modules_array', ET_Builder_Element::get_modules_array( $post_type, true, true ) );
 	$modules_row_overlapping_add_new = apply_filters( 'et_fb_modules_row_overlapping_add_new', array(
 		'et_pb_counters',
@@ -139,7 +147,7 @@ function et_fb_backend_helpers() {
 	) );
 
 	$helpers = array(
-		'debug'                        => true,
+		'debug'                        => defined( 'ET_DEBUG' ) && ET_DEBUG,
 		'autosaveInterval'             => et_builder_autosave_interval(),
 		'postId'                       => $post_id,
 		'postTitle'                    => $post_title,
@@ -162,6 +170,7 @@ function et_fb_backend_helpers() {
 			'defaults'                     => array(),
 			'optionsToggles'               => array(),
 		),
+		'et_account'                   => $et_account,
 		'productTourStatus'            => et_builder_is_product_tour_enabled() ? 'on' : 'off',
 		'moduleParentShortcodes'       => ET_Builder_Element::get_parent_shortcodes( $post_type ),
 		'moduleChildShortcodes'        => ET_Builder_Element::get_child_shortcodes( $post_type ),
@@ -623,7 +632,7 @@ function et_fb_backend_helpers() {
 					'sub_toggle'      => 'column_%s',
 				),
 				'allow_player_pause_%s' => array(
-					'label'           => esc_html__( 'Column %s Pause Video', 'et_builder' ),
+					'label'           => esc_html__( 'Column %s Pause Video When Another Video Plays', 'et_builder' ),
 					'type'            => 'yes_no_button',
 					'option_category' => 'configuration',
 					'options'         => array(
@@ -631,6 +640,19 @@ function et_fb_backend_helpers() {
 						'on'  => esc_html__( 'Yes', 'et_builder' ),
 					),
 					'default'         => 'off',
+					'tab_slug'        => 'general',
+					'toggle_slug'     => 'background',
+					'sub_toggle'      => 'column_%s',
+				),
+				'background_video_pause_outside_viewport_%s' => array(
+					'label'           => esc_html__( 'Column %s Pause Video While Not In View', 'et_builder' ),
+					'type'            => 'yes_no_button',
+					'option_category' => 'configuration',
+					'options'         => array(
+						'off' => esc_html__( 'No', 'et_builder' ),
+						'on'  => esc_html__( 'Yes', 'et_builder' ),
+					),
+					'default'         => 'on',
 					'tab_slug'        => 'general',
 					'toggle_slug'     => 'background',
 					'sub_toggle'      => 'column_%s',
@@ -894,7 +916,8 @@ function et_fb_backend_helpers() {
 			'clearLayoutText'  => esc_html__( 'All of your current page content will be lost. Do you wish to proceed?', 'et_builder' ),
 			'yes'              => esc_html__( 'Yes', 'et_builder' ),
 			'loadLayout'       => esc_html__( 'Load From Library', 'et_builder' ),
-			'predefinedLayout' => esc_html__( 'Predefined Layouts', 'et_builder' ),
+			'layoutDetails'    => esc_html__( 'Layout Details', 'et_builder' ),
+			'layoutName'       => esc_html__( 'Layout Name', 'et_builder' ),
 			'replaceLayout'    => esc_html__( 'Replace existing content.', 'et_builder' ),
 			'search'           => esc_html__( 'Search', 'et_builder' ) . '...',
 			'portability'      => esc_html__( 'Portability', 'et_builder' ),
@@ -909,13 +932,14 @@ function et_fb_backend_helpers() {
 			'importButton'     => esc_html__( 'Import Divi Builder Layout', 'et_builder' ),
 			'noFile'           => esc_html__( 'No File Selected', 'et_builder' ),
 			'chooseFile'       => esc_html__( 'Choose File', 'et_builder' ),
+			'importOptions'    => esc_html__( 'Options', 'et_builder' ),
 		),
 		'saveModuleLibraryAttrs'        => array(
 			'general'               => esc_html__( 'Include General Settings', 'et_builder' ),
 			'advanced'              => esc_html__( 'Include Advanced Design Settings', 'et_builder' ),
 			'css'                   => esc_html__( 'Include Custom CSS', 'et_builder' ),
 			'selectCategoriesText'  => esc_html__( 'Select category(ies) for new template or type a new name ( optional )', 'et_builder' ),
-			'templateName'          => esc_html__( 'Template Name', 'et_builder' ),
+			'templateName'          => esc_html__( 'Layout Name', 'et_builder' ),
 			'selectiveError'        => esc_html__( 'Please select at least 1 tab to save', 'et_builder' ),
 			'globalTitle'           => esc_html__( 'Save as Global', 'et_builder' ),
 			'globalText'            => esc_html__( 'Make this a global item', 'et_builder' ),
@@ -2031,6 +2055,15 @@ function et_fb_backend_helpers() {
 		'libraryLoadError'    => esc_html__( 'Error loading Library items from server. Please refresh the page and try again.', 'et_builder' ),
 		'productTourText'     => array(),
 	);
+
+	// Add strings from i18n directory. Note: We don't handle subdirectories, but we should in the future.
+	$i18n_files = glob( ET_BUILDER_DIR . 'frontend-builder/i18n/*.php' );
+
+	foreach ( $i18n_files as $file ) {
+		$key = basename( $file, '.php' );
+
+		$helpers['i18n'][ $key ] = require $file;
+	}
 
 	// Pass helpers via localization.
 	wp_localize_script( 'et-frontend-builder', 'ETBuilderBackend', $helpers );

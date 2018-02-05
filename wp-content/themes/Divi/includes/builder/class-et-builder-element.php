@@ -3983,6 +3983,7 @@ class ET_Builder_Element {
 				"{$base_name}_video_width",
 				"{$base_name}_video_height",
 				"{$prefix}allow_player_pause",
+				"{$base_name}_video_pause_outside_viewport",
 			),
 		);
 
@@ -4467,7 +4468,7 @@ class ET_Builder_Element {
 			);
 
 			$options["${baseless_prefix}allow_player_pause"] = array(
-				'label'            => esc_html__( 'Pause Video', 'et_builder' ),
+				'label'            => esc_html__( 'Pause Video When Another Video Plays', 'et_builder' ),
 				'type'             => 'skip' === $background_tab ? 'skip' : 'yes_no_button',
 				'option_category'  => 'configuration',
 				'options'          => array(
@@ -4480,6 +4481,22 @@ class ET_Builder_Element {
 				'tab_slug'         => $tab_slug,
 				'toggle_slug'      => $toggle_slug,
 				'field_template'   => 'allow_player_pause',
+			);
+
+			$options["${base_name}_video_pause_outside_viewport"] = array(
+				'label'            => esc_html__( 'Pause Video While Not In View', 'et_builder' ),
+				'type'             => 'skip' === $background_tab ? 'skip' : 'yes_no_button',
+				'option_category'  => 'configuration',
+				'options'          => array(
+					'off' => esc_html__( 'No', 'et_builder' ),
+					'on'  => esc_html__( 'Yes', 'et_builder' ),
+				),
+				'default'          => 'on',
+				'default_on_child' => true,
+				'description'      => esc_html__( 'Allow video to be paused while it is not in the visible area.', 'et_builder' ),
+				'tab_slug'         => $tab_slug,
+				'toggle_slug'      => $toggle_slug,
+				'field_template'   => 'video_pause_outside_viewport',
 			);
 
 			$options["__video_{$base_name}"] = array(
@@ -6189,7 +6206,7 @@ class ET_Builder_Element {
 
 		// Should be `justified` instead of justify in classname.
 		$text_orientation = 'justify' === $text_orientation ? 'justified' : $text_orientation;
-		
+
 		$default_classname = $print_default ? ' et_pb_text_align_left' : '';
 
 		return '' !== $text_orientation ? " et_pb_text_align_{$text_orientation}" : $default_classname;
@@ -8781,7 +8798,8 @@ class ET_Builder_Element {
 		if ( ! empty( $args ) ) {
 			$background_video = self::get_video_background( $args );
 
-			$allow_player_pause = isset( $args[ "{$custom_prefix}allow_player_pause" ] ) ? $args[ "{$custom_prefix}allow_player_pause" ] : 'off';
+			$pause_outside_viewport = isset( $args[ "{$attr_prefix}video_pause_outside_viewport" ] ) ? $args[ "{$attr_prefix}video_pause_outside_viewport" ] : '';
+			$allow_player_pause          = isset( $args[ "{$custom_prefix}allow_player_pause" ] ) ? $args[ "{$custom_prefix}allow_player_pause" ] : 'off';
 		} else {
 			$background_video = self::get_video_background( array(
 				"{$attr_prefix}video_mp4"    => isset( $this->shortcode_atts["{$attr_prefix}video_mp4"] ) ? $this->shortcode_atts["{$attr_prefix}video_mp4"] : '',
@@ -8793,18 +8811,20 @@ class ET_Builder_Element {
 				),
 			) );
 
-			$allow_player_pause = isset( $this->shortcode_atts["{$custom_prefix}allow_player_pause"] ) ? $this->shortcode_atts["{$custom_prefix}allow_player_pause"] : 'off';
+			$pause_outside_viewport = isset( $this->shortcode_atts["{$attr_prefix}video_pause_outside_viewport"] ) ? $this->shortcode_atts["{$attr_prefix}video_pause_outside_viewport"] : '';
+			$allow_player_pause          = isset( $this->shortcode_atts["{$custom_prefix}allow_player_pause"] ) ? $this->shortcode_atts["{$custom_prefix}allow_player_pause"] : 'off';
 		}
 
 		$video_background = '';
 
 		if ( $background_video ) {
 			$video_background = sprintf(
-				'<span class="et_pb_section_video_bg%2$s">
+				'<span class="et_pb_section_video_bg%2$s%3$s">
 					%1$s
 				</span>',
 				$background_video,
-				( 'on' === $allow_player_pause ? ' et_pb_allow_player_pause' : '' )
+				( 'on' === $allow_player_pause ? ' et_pb_allow_player_pause' : '' ),
+				( 'off' === $pause_outside_viewport ? ' et_pb_video_play_outside_viewport' : '' )
 			);
 
 			wp_enqueue_style( 'wp-mediaelement' );
@@ -9206,6 +9226,7 @@ class ET_Builder_Structure_Element extends ET_Builder_Element {
 					current_background_video_width = typeof et_pb_background_video_width_%1$s !== \'undefined\' ? et_pb_background_video_width_%1$s : \'\';
 					current_background_video_height = typeof et_pb_background_video_height_%1$s !== \'undefined\' ? et_pb_background_video_height_%1$s : \'\';
 					current_allow_played_pause = typeof et_pb_allow_player_pause_%1$s !== \'undefined\' &&  \'on\' === et_pb_allow_player_pause_%1$s ? \' selected="selected"\' : \'\';
+					current_background_video_pause_outside_viewport = typeof et_pb_background_video_pause_outside_viewport_%1$s !== \'undefined\' &&  \'off\' === et_pb_background_video_pause_outside_viewport_%1$s ? \' selected="selected"\' : \'\';
 					current_value_parallax = typeof et_pb_parallax_%1$s !== \'undefined\' && \'on\' === et_pb_parallax_%1$s ? \' selected="selected"\' : \'\';
 					current_value_parallax_method = typeof et_pb_parallax_method_%1$s !== \'undefined\' && \'on\' !== et_pb_parallax_method_%1$s ? \' selected="selected"\' : \'\';
 					break; ',
@@ -9307,7 +9328,8 @@ class ET_Builder_Structure_Element extends ET_Builder_Element {
 						current_background_video_webm,
 						current_background_video_width,
 						current_background_video_height,
-						current_allow_played_pause;
+						current_allow_played_pause,
+						current_background_video_pause_outside_viewport;
 					switch ( counter ) {
 						%1$s
 					}
@@ -9778,6 +9800,22 @@ class ET_Builder_Structure_Element extends ET_Builder_Element {
 						</div><span class="et-pb-reset-setting"></span>
 					</div>
 				</div>
+				<div class="et_pb_background-option et_pb_background-option--background_video_pause_outside_viewport et_pb_background-template--background_video_pause_outside_viewport et-pb-option et-pb-option--background_video_pause_outside_viewport">
+					<label for="et_pb_background_video_pause_outside_viewport_<%%= counter %%>">%15$s: </label>
+					<div class="et-pb-option-container et-pb-option-container--yes_no_button">
+						<div class="et_pb_yes_no_button_wrapper ">
+							<div class="et_pb_yes_no_button et_pb_off_state">
+								<span class="et_pb_value_text et_pb_on_value">%13$s</span>
+								<span class="et_pb_button_slider"></span>
+								<span class="et_pb_value_text et_pb_off_value">%14$s</span>
+							</div>
+							<select name="et_pb_background_video_pause_outside_viewport_<%%= counter %%>" id="et_pb_background_video_pause_outside_viewport_<%%= counter %%>" class="et-pb-main-setting regular-text" data-default="on">
+								<option value="on">%13$s</option>
+								<option value="off" <%%= current_background_video_pause_outside_viewport %%>>%14$s</option>
+							</select>
+						</div><span class="et-pb-reset-setting"></span>
+					</div>
+				</div>
 			</div>',
 			esc_html__( 'Background Video MP4', 'et_builder' ),
 			$this->get_icon( 'add' ),
@@ -9790,9 +9828,10 @@ class ET_Builder_Structure_Element extends ET_Builder_Element {
 			esc_html__( 'Choose a Background Video WEBM File', 'et_builder' ),
 			esc_html__( 'Background Video Width', 'et_builder' ), // #10
 			esc_html__( 'Background Video Height', 'et_builder' ),
-			esc_html__( 'Pause Video', 'et_builder' ),
+			esc_html__( 'Pause Video When Another Video Plays', 'et_builder' ),
 			esc_html__( 'On', 'et_builder' ),
-			esc_html__( 'Off', 'et_builder' )
+			esc_html__( 'Off', 'et_builder' ),
+			esc_html__( 'Pause Video While Not In View', 'et_builder' ) // #15
 		);
 
 		$output .= sprintf(
