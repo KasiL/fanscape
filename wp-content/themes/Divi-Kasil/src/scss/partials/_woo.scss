@@ -1,6 +1,6 @@
 //woo commerce styling
 //hide pricing
-.summary .price {
+.summary > .price {
     display: none;
 }
 //top breadcrumb
@@ -23,6 +23,9 @@
     //adds space between image and desc
     .woocommerce-product-gallery {
         margin-bottom: 25px !important;
+        @media (min-width:$screen-tab-min) {
+            margin-right: 2%;
+        }
     }
 }
 //woo-commerce button style
@@ -73,5 +76,14 @@ input {
     input {
         padding: 5px 10px;
         line-height: 2;
+    }
+}
+//fix tag layout under description
+.product_meta {
+    .tagged_as {
+        display: block;
+    }
+    .sku_wrapper {
+        display: none;
     }
 }
