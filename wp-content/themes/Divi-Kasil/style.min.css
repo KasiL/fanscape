@@ -21,6 +21,7 @@ body.kasil.woocommerce .summary .price,body.kasil.woocommerce-page .summary .pri
 body.kasil.woocommerce .woocommerce-breadcrumb,body.kasil.woocommerce-page .woocommerce-breadcrumb,body.kasil.woocommerce-cart .woocommerce-breadcrumb{font-weight:700}
 body.kasil.woocommerce .woocommerce-breadcrumb a,body.kasil.woocommerce-page .woocommerce-breadcrumb a,body.kasil.woocommerce-cart .woocommerce-breadcrumb a{color:#fb8523}
 body.kasil.woocommerce .woocommerce-message,body.kasil.woocommerce-page .woocommerce-message,body.kasil.woocommerce-cart .woocommerce-message{background-color:#ccc !important}
+body.kasil.woocommerce .product,body.kasil.woocommerce-page .product,body.kasil.woocommerce-cart .product{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap}
 body.kasil.woocommerce .product .woocommerce-product-gallery,body.kasil.woocommerce-page .product .woocommerce-product-gallery,body.kasil.woocommerce-cart .product .woocommerce-product-gallery{margin-bottom:25px !important}
 body.kasil.woocommerce .button,body.kasil.woocommerce-page .button,body.kasil.woocommerce-cart .button{color:#fff !important;background:#fb8523 !important}
 body.kasil.woocommerce .button:hover,body.kasil.woocommerce-page .button:hover,body.kasil.woocommerce-cart .button:hover{background:#f78d1f !important}

@@ -16,6 +16,10 @@
 }
 //detail page product
 .product {
+    //fixes weird wrapping on landing page
+    display: flex;
+    flex-wrap: wrap;
+
     //adds space between image and desc
     .woocommerce-product-gallery {
         margin-bottom: 25px !important;
