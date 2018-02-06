@@ -1,0 +1,22 @@
+#av-overlay {
+    #av_verify_form {
+        p select {
+            font-size: 16px;
+        }
+        .submit {
+            //remember
+            #av_verify_remember {
+                font-size: 16px;
+                display: block;
+                min-height: 30px;
+            }
+            //button
+            #av_verify {
+                display: block;
+                width: 100%;
+                min-height: 50px;
+                font-size: 16px;
+            }
+        }
+    }
+}

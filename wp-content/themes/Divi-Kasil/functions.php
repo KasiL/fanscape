@@ -43,4 +43,19 @@ function kasil_custom_scripts () {
 add_action ('wp_enqueue_scripts', 'kasil_custom_scripts');
 // wp_enqueue_script( 'orbit-et-builder-modules-global-functions-script', get_stylesheet_directory_uri() . '/includes/builder/scripts/frontend-builder-global-functions.js', ['jquery'], '1.0', TRUE );
 // wp_enqueue_script( 'orbit-et-builder-modules-script', get_stylesheet_directory_uri() . '/includes/builder/scripts/frontend-builder-scripts.js', ['jquery', 'et-builder-modules-script'], '1.0', TRUE );
+
+//adds custom author to post
+add_filter( 'the_author', 'guest_author_name' );
+add_filter( 'get_the_author_display_name', 'guest_author_name' );
+ 
+function guest_author_name( $name ) {
+global $post;
+ 
+$author = get_post_meta( $post->ID, 'guest-author', true );
+ 
+if ( $author )
+$name = $author;
+ 
+return $name;
+}
 ?>

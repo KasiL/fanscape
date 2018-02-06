@@ -11,6 +11,8 @@ body.kasil #main-footer #footer-widgets a{-webkit-transition:.3s;transition:.3s}
 body.kasil #main-footer #footer-widgets a:hover{color:#f99e26}
 body.kasil #main-footer #footer-widgets .footer-widget:last-of-type .product-categories{display:-ms-grid;display:grid}
 body.kasil #main-header #logo{-webkit-transform:inherit;-ms-transform:inherit;transform:inherit}
+body.kasil #av-overlay #av_verify_form p select{font-size:16px}
+body.kasil #av-overlay #av_verify_form .submit #av_verify{display:block;width:100%;min-height:50px;font-size:16px}
 body.kasil input[type="submit"]{margin-top:10px;color:#fff;background:#fb8523;border-radius:5px;text-align:center;border:0;padding:5px;font-weight:700;text-transform:uppercase}
 body.kasil input[type="submit"]:hover{background:#f78d1f}
 body.kasil #sidebar .woocommerce-product-search input{width:100%;padding:5px 2px}
