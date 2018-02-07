@@ -40,7 +40,8 @@ body.kasil {
 	// @import 'partials/utilities';
 	&.woocommerce,
 	&.woocommerce-page,
-	&.woocommerce-cart {
+	&.woocommerce-cart,
+	&.page-id-69 {
 		@import 'partials/woo';
 	}
 }
